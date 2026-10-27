@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #047857;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Hangul (한글): Guida Fono-Grafica</title>
+
+</head>
+<body>
+
+  <div class="badge">COREANO (FONETICA) • FOGLIO DI STUDIO</div>
+  <h1>Hangul (한글): Guida Fono-Grafica</h1>
+
+  <div class="block-anatomy">
+    <div class="block-preview">한</div>
+    <div>
+      <h3 style="margin: 0 0 6px 0; border: none; padding: 0;">Anatomia del Blocco Sillabico</h3>
+      <p style="margin: 0; font-size: 0.95rem;">L'alfabeto coreano non si scrive linearmente da sinistra a destra come l'alfabeto latino, ma si organizza in <strong>blocchi sillabici</strong> di 2, 3 o 4 lettere:<br>
+      <strong>Iniziale:</strong> ㅎ (h) + <strong>Mediana:</strong> ㅏ (a) + <strong>Finale (Batchim):</strong> ㄴ (n) = <strong>한 (Han)</strong></p>
+    </div>
+  </div>
+
+  <h2>1. Le Vocali Base (모음)</h2>
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Lettera</th>
+        <th>Romanizzazione</th>
+        <th>Pronuncia approssimativa italiana</th>
+        <th>Forma sillabica autonoma (con ㅇ muta)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="hangul-char">ㅏ</span></td>
+        <td>a</td>
+        <td>"a" aperta e luminosa</td>
+        <td><span class="hangul-char">아</span> (a)</td>
+      </tr>
+      <tr>
+        <td><span class="hangul-char">ㅓ</span></td>
+        <td>eo</td>
+        <td>"o" molto aperta, tra "o" ed "a" senza arrotondare le labbra</td>
+        <td><span class="hangul-char">어</span> (eo)</td>
+      </tr>
+      <tr>
+        <td><span class="hangul-char">ㅗ</span></td>
+        <td>o</td>
+        <td>"o" chiusa con labbra protese in avanti</td>
+        <td><span class="hangul-char">오</span> (o)</td>
+      </tr>
+      <tr>
+        <td><span class="hangul-char">ㅜ</span></td>
+        <td>u</td>
+        <td>"u" pura</td>
+        <td><span class="hangul-char">우</span> (u)</td>
+      </tr>
+      <tr>
+        <td><span class="hangul-char">ㅡ</span></td>
+        <td>eu</td>
+        <td>Suono indistinto / schwa, denti stretti e labbra distese a sorriso</td>
+        <td><span class="hangul-char">으</span> (eu)</td>
+      </tr>
+      <tr>
+        <td><span class="hangul-char">ㅣ</span></td>
+        <td>i</td>
+        <td>"i" limpida</td>
+        <td><span class="hangul-char">이</span> (i)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>2. Le Consonanti Base e la Trilogia Fono-Articolatoria</h2>
+  <p>In coreano le consonanti occlusive si dividono in tre gradi: Semplici (rilassate), Aspirate (con soffio d'aria) e Tese/Doppie (glottalizzate e senza aria):</p>
+
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th>Semplice (Rilassata)</th>
+        <th>Aspirata (Forte soffio)</th>
+        <th>Tesa (Doppia/Gutturale)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Velari (G / K)</td>
+        <td><span class="hangul-char">ㄱ</span> (g/k)</td>
+        <td><span class="hangul-char">ㅋ</span> (k')</td>
+        <td><span class="hangul-char">ㄲ</span> (kk)</td>
+      </tr>
+      <tr>
+        <td>Alveolari (D / T)</td>
+        <td><span class="hangul-char">ㄷ</span> (d/t)</td>
+        <td><span class="hangul-char">ㅌ</span> (t')</td>
+        <td><span class="hangul-char">ㄸ</span> (tt)</td>
+      </tr>
+      <tr>
+        <td>Bilabiali (B / P)</td>
+        <td><span class="hangul-char">ㅂ</span> (b/p)</td>
+        <td><span class="hangul-char">ㅍ</span> (p')</td>
+        <td><span class="hangul-char">ㅃ</span> (pp)</td>
+      </tr>
+      <tr>
+        <td>Affricate (J / CH)</td>
+        <td><span class="hangul-char">ㅈ</span> (j/ch)</td>
+        <td><span class="hangul-char">ㅊ</span> (ch')</td>
+        <td><span class="hangul-char">ㅉ</span> (jj)</td>
+      </tr>
+      <tr>
+        <td>Sibilanti (S)</td>
+        <td><span class="hangul-char">ㅅ</span> (s)</td>
+        <td>—</td>
+        <td><span class="hangul-char">ㅆ</span> (ss)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>3. La Consonante Finale: Batchim (받침)</h2>
+  <p>Quando una consonante si trova nella posizione finale inferiore del blocco sillabico, molte di esse neutralizzano il suono su soli 7 timbri acustici:</p>
+  <ul>
+    <li>ㄱ, ㅋ, ㄲ ➔ suonano tutte come <strong>[k̚]</strong> (k non rilasciata)</li>
+    <li>ㄷ, ㅅ, ㅆ, ㅈ, ㅊ, ㅌ, ㅎ ➔ tutte neutralizzate come <strong>[t̚]</strong> (es. 옷 = ot)</li>
+    <li>ㅂ, ㅍ ➔ suonano come <strong>[p̚]</strong></li>
+    <li>ㅇ in posizione finale = suono nasale velare <strong>[ng]</strong> (come nell'inglese <em>sing</em>)</li>
+  </ul>
+
+</body>
+</html>

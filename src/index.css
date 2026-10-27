@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #dce1e8;
+    color: #1e2229;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+}
+
+/* Containment to prevent any table or content from spilling outside sheets or notes */
+.glossa-reader-article,
+.note-paper,
+[contenteditable] {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Clean thin scrollbars for horizontal menus */
+.scrollbar-thin::-webkit-scrollbar {
+  height: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.4);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.7);
+}
+
+/* ==========================================================================
+   NOTE EDITOR TYPOGRAPHY (Overriding Tailwind reset for contenteditable)
+   Guarantees that H2, UL, OL, LI, P, and Tables format visually as expected!
+   ========================================================================== */
+
+[contenteditable] h1 {
+  font-size: 1.85rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 12px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 2px solid #7c3aed !important;
+  line-height: 1.3 !important;
+  display: block !important;
+}
+
+[contenteditable] h2 {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  margin-top: 1.8rem !important;
+  margin-bottom: 10px !important;
+  padding-bottom: 6px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  line-height: 1.35 !important;
+  display: block !important;
+}
+
+[contenteditable] h3 {
+  font-size: 1.15rem !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  margin-top: 1.4rem !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+[contenteditable] p {
+  margin: 10px 0 !important;
+  line-height: 1.75 !important;
+  display: block !important;
+}
+
+/* UNORDERED LIST: Bullet points with standard indentation */
+[contenteditable] ul {
+  list-style-type: disc !important;
+  margin: 12px 0 12px 24px !important;
+  padding-left: 18px !important;
+  display: block !important;
+}
+
+/* ORDERED LIST: Standard 1. 2. 3. numbers */
+[contenteditable] ol {
+  list-style-type: decimal !important;
+  margin: 12px 0 12px 24px !important;
+  padding-left: 18px !important;
+  display: block !important;
+}
+
+[contenteditable] li {
+  display: list-item !important;
+  margin-bottom: 6px !important;
+  line-height: 1.65 !important;
+  color: #1e242c !important;
+}
+
+/* TABLES INSIDE THE NOTE EDITOR */
+[contenteditable] .table-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  margin: 18px 0 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+}
+
+[contenteditable] table {
+  width: 100% !important;
+  min-width: 480px !important;
+  border-collapse: collapse !important;
+  margin: 0 !important;
+  display: table !important;
+  font-size: 14.5px !important;
+}
+
+[contenteditable] th {
+  border: 1px solid #cbd5e1 !important;
+  padding: 10px 12px !important;
+  background-color: #f1f5f9 !important;
+  font-weight: 600 !important;
+  color: #334155 !important;
+  text-align: left !important;
+}
+
+[contenteditable] td {
+  border: 1px solid #cbd5e1 !important;
+  padding: 10px 12px !important;
+  min-height: 38px !important;
+  vertical-align: middle !important;
+  color: #1e242c !important;
+}
+
+[contenteditable] tr:nth-child(even) td {
+  background-color: #fafbfc !important;
+}
+
+[contenteditable] .vocab-word {
+  font-weight: 600 !important;
+  color: #7c3aed !important;
+}

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #1d4ed8;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Hiragana & Katakana: Tavola Mnemonica</title>
+
+</head>
+<body>
+
+  <div class="badge">GIAPPONESE (N5) • FOGLIO DI STUDIO</div>
+  <h1>Hiragana & Katakana: Tavola Mnemonica</h1>
+
+  <p>I due sillabari fonetici giapponesi (46 segni base ciascuno). Ogni segno corrisponde ad una mora precisa.</p>
+
+  <h2>1. Le 5 Vocali Fondamentali (母音)</h2>
+  <div class="grid-kana">
+    <div class="kana-card">
+      <div class="kana-char">あ</div>
+      <div class="kata-sub">ア</div>
+      <div class="romaji">a</div>
+    </div>
+    <div class="kana-card">
+      <div class="kana-char">い</div>
+      <div class="kata-sub">イ</div>
+      <div class="romaji">i</div>
+    </div>
+    <div class="kana-card">
+      <div class="kana-char">う</div>
+      <div class="kata-sub">ウ</div>
+      <div class="romaji">u</div>
+    </div>
+    <div class="kana-card">
+      <div class="kana-char">え</div>
+      <div class="kata-sub">エ</div>
+      <div class="romaji">e</div>
+    </div>
+    <div class="kana-card">
+      <div class="kana-char">お</div>
+      <div class="kata-sub">オ</div>
+      <div class="romaji">o</div>
+    </div>
+  </div>
+
+  <h2>2. Le Righe Consonantiche (Hiragana / Katakana)</h2>
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Consonante</th>
+        <th>~ a</th>
+        <th>~ i</th>
+        <th>~ u</th>
+        <th>~ e</th>
+        <th>~ o</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>K</strong></td>
+        <td><span class="kana-char">か</span> / カ (ka)</td>
+        <td><span class="kana-char">き</span> / キ (ki)</td>
+        <td><span class="kana-char">く</span> / ク (ku)</td>
+        <td><span class="kana-char">け</span> / ケ (ke)</td>
+        <td><span class="kana-char">こ</span> / コ (ko)</td>
+      </tr>
+      <tr>
+        <td><strong>S</strong></td>
+        <td><span class="kana-char">さ</span> / サ (sa)</td>
+        <td><span class="kana-char">し</span> / シ (shi)</td>
+        <td><span class="kana-char">す</span> / ス (su)</td>
+        <td><span class="kana-char">せ</span> / セ (se)</td>
+        <td><span class="kana-char">そ</span> / ソ (so)</td>
+      </tr>
+      <tr>
+        <td><strong>T</strong></td>
+        <td><span class="kana-char">た</span> / タ (ta)</td>
+        <td><span class="kana-char">ち</span> / チ (chi)</td>
+        <td><span class="kana-char">つ</span> / ツ (tsu)</td>
+        <td><span class="kana-char">て</span> / テ (te)</td>
+        <td><span class="kana-char">と</span> / ト (to)</td>
+      </tr>
+      <tr>
+        <td><strong>N</strong></td>
+        <td><span class="kana-char">な</span> / ナ (na)</td>
+        <td><span class="kana-char">に</span> / ニ (ni)</td>
+        <td><span class="kana-char">ぬ</span> / ヌ (nu)</td>
+        <td><span class="kana-char">ね</span> / ネ (ne)</td>
+        <td><span class="kana-char">の</span> / ノ (no)</td>
+      </tr>
+      <tr>
+        <td><strong>H</strong></td>
+        <td><span class="kana-char">は</span> / ハ (ha)</td>
+        <td><span class="kana-char">ひ</span> / ヒ (hi)</td>
+        <td><span class="kana-char">ふ</span> / フ (fu)</td>
+        <td><span class="kana-char">へ</span> / ヘ (he)</td>
+        <td><span class="kana-char">ほ</span> / ホ (ho)</td>
+      </tr>
+      <tr>
+        <td><strong>M</strong></td>
+        <td><span class="kana-char">ま</span> / マ (ma)</td>
+        <td><span class="kana-char">み</span> / ミ (mi)</td>
+        <td><span class="kana-char">む</span> / ム (mu)</td>
+        <td><span class="kana-char">め</span> / メ (me)</td>
+        <td><span class="kana-char">も</span> / モ (mo)</td>
+      </tr>
+      <tr>
+        <td><strong>Y</strong></td>
+        <td><span class="kana-char">や</span> / ヤ (ya)</td>
+        <td>—</td>
+        <td><span class="kana-char">ゆ</span> / ユ (yu)</td>
+        <td>—</td>
+        <td><span class="kana-char">よ</span> / ヨ (yo)</td>
+      </tr>
+      <tr>
+        <td><strong>R</strong></td>
+        <td><span class="kana-char">ら</span> / ラ (ra)</td>
+        <td><span class="kana-char">り</span> / リ (ri)</td>
+        <td><span class="kana-char">る</span> / ル (ru)</td>
+        <td><span class="kana-char">れ</span> / レ (re)</td>
+        <td><span class="kana-char">ろ</span> / ロ (ro)</td>
+      </tr>
+      <tr>
+        <td><strong>W & N</strong></td>
+        <td><span class="kana-char">わ</span> / ワ (wa)</td>
+        <td>—</td>
+        <td>—</td>
+        <td>—</td>
+        <td><span class="kana-char">を</span> / ヲ (wo/o)</td>
+      </tr>
+      <tr>
+        <td><strong>Nasale pura</strong></td>
+        <td colspan="5"><span class="kana-char">ん</span> / ン (n sillabica)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>3. Modificatori Fonetici: Dakuten (゛) e Handakuten (゜)</h2>
+  <p>Aggiungendo i due trattini (tenten) o il cerchietto (maru):</p>
+  <ul>
+    <li><strong>K ➔ G:</strong> か(ka) ➔ が(ga), き(ki) ➔ ぎ(gi), く(ku) ➔ ぐ(gu), け(ke) ➔ げ(ge), こ(ko) ➔ ご(go)</li>
+    <li><strong>S ➔ Z:</strong> さ(sa) ➔ ざ(za), し(shi) ➔ じ(ji), す(su) ➔ ず(zu), せ(se) ➔ ぜ(ze), そ(so) ➔ ぞ(zo)</li>
+    <li><strong>T ➔ D:</strong> た(ta) ➔ だ(da), ち(chi) ➔ ぢ(ji), つ(tsu) ➔ づ(zu), て(te) ➔ で(de), と(to) ➔ ど(do)</li>
+    <li><strong>H ➔ B:</strong> は(ha) ➔ ば(ba), ひ(hi) ➔ び(bi), ふ(fu) ➔ ぶ(bu), へ(he) ➔ べ(be), ほ(ho) ➔ ぼ(bo)</li>
+    <li><strong>H ➔ P:</strong> は(ha) ➔ ぱ(pa), ひ(hi) ➔ ぴ(pi), ふ(fu) ➔ ぷ(pu), へ(he) ➔ ぺ(pe), ほ(ho) ➔ ぽ(po)</li>
+  </ul>
+
+</body>
+</html>

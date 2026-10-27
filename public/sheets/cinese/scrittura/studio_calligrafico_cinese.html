@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Studio Calligrafico Cinese (中國書法) — Edizione Offline</title>
+  <style>
+    :root {
+      --bg-xuan: #FAF7F2;
+      --bg-panel: #F6F2E9;
+      --bg-control: #EDE7DA;
+      --ink-sumi: #181512;
+      --ink-muted: #5C554E;
+      --ink-faint: #8C8275;
+      --seal-cinnabar: #A32A18;
+      --border-delicate: #E5DEC9;
+      --border-strong: #D5C9B6;
+      --font-serif: "Cormorant Garamond", "Songti SC", "SimSun", Georgia, serif;
+      --font-calligraphy: "Noto Serif SC", "Songti SC", "SimSun", "Kaiti SC", "STKaiti", "Cormorant Garamond", Georgia, serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-xuan);
+      color: var(--ink-sumi);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      border-bottom: 1px solid var(--border-delicate);
+      background: var(--bg-xuan);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 23px;
+      font-weight: 700;
+      color: var(--ink-sumi);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-muted);
+      cursor: pointer;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--ink-sumi);
+      border-bottom-color: var(--seal-cinnabar);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-xuan);
+      color: var(--ink-sumi);
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--bg-control); }
+    .btn:disabled { opacity: 0.4; pointer-events: none; }
+    .btn-primary {
+      background: var(--ink-sumi);
+      color: var(--bg-xuan);
+      border-color: var(--ink-sumi);
+    }
+    .btn-primary:hover { background: #2E2924; }
+    .btn-cinnabar {
+      background: var(--seal-cinnabar);
+      color: var(--bg-xuan);
+      border-color: var(--seal-cinnabar);
+    }
+    .btn-cinnabar:hover { background: #8B2213; }
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (min-width: 1024px) {
+      .studio-grid {
+        grid-template-columns: 7fr 5fr;
+      }
+    }
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-delicate);
+      border-radius: 8px;
+      padding: 18px;
+    }
+    .toolbar-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-delicate);
+    }
+    .toolbar-row:last-child {
+      padding-bottom: 0;
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+    .segmented {
+      display: inline-flex;
+      background: var(--bg-control);
+      padding: 4px;
+      border-radius: 6px;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .seg-btn {
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 6px 11px;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .seg-btn:hover { color: var(--ink-sumi); }
+    .seg-btn.active {
+      background: var(--seal-cinnabar);
+      color: var(--bg-xuan);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    .ink-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+    .canvas-stage {
+      position: relative;
+      width: 100%;
+      max-width: 660px;
+      aspect-ratio: 1 / 1;
+      margin: 18px auto 0;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      overflow: hidden;
+      user-select: none;
+      touch-action: none;
+    }
+    #xuan-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      touch-action: none;
+    }
+    .meta-line {
+      font-size: 12px;
+      color: var(--ink-muted);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .serif-title {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--ink-sumi);
+      margin-top: 4px;
+    }
+    .poetic-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--ink-muted);
+      font-size: 15px;
+      margin-top: 2px;
+    }
+    .specimen-mini {
+      width: 74px;
+      height: 74px;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-calligraphy);
+      font-size: 36px;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .anatomy-list {
+      max-height: 290px;
+      overflow-y: auto;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-delicate);
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    .anatomy-item {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-delicate);
+      font-size: 12px;
+    }
+    .anatomy-item:last-child { border-bottom: none; }
+    .carousel-strip {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 8px 2px;
+      margin-top: 10px;
+    }
+    .carousel-card {
+      flex-shrink: 0;
+      width: 125px;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .carousel-card.active {
+      border-color: var(--seal-cinnabar);
+      box-shadow: 0 0 0 1px var(--seal-cinnabar);
+    }
+    .library-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .lib-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-delicate);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .lib-specimen {
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-delicate);
+      border-radius: 6px;
+      padding: 22px 10px;
+      text-align: center;
+      font-family: var(--font-calligraphy);
+      font-size: 48px;
+      font-weight: 600;
+      margin: 12px 0;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-strong);
+      border-radius: 5px;
+      font-size: 13px;
+      color: var(--ink-sumi);
+    }
+    .flashcard-box {
+      max-width: 760px;
+      min-height: 400px;
+      margin: 24px auto;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-strong);
+      border-radius: 10px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .picker-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+      gap: 8px;
+      max-height: 220px;
+      overflow-y: auto;
+      background: var(--bg-xuan);
+      border: 1px solid var(--border-delicate);
+      border-radius: 6px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .picker-chip {
+      padding: 8px 4px;
+      border-radius: 5px;
+      border: 1px solid var(--border-delicate);
+      background: var(--bg-panel);
+      cursor: pointer;
+      text-align: center;
+    }
+    .picker-chip.selected {
+      background: var(--seal-cinnabar);
+      color: var(--bg-xuan);
+      border-color: var(--seal-cinnabar);
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#studio" class="brand" onclick="switchTab('studio'); return false;">Studio Calligrafico Cinese</a>
+    <nav class="nav-links">
+      <button type="button" class="nav-btn active" id="nav-studio" onclick="switchTab('studio')">Tavola da Disegno</button>
+      <button type="button" class="nav-btn" id="nav-sheets" onclick="switchTab('sheets')">Fogli di Studio</button>
+      <button type="button" class="nav-btn" id="nav-library" onclick="switchTab('library')">Biblioteca & Caratteri</button>
+      <button type="button" class="nav-btn" id="nav-flashcards" onclick="switchTab('flashcards')">Schede Didattiche</button>
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="btn" id="audio-toggle-btn" onclick="toggleAudio()">Audio: Attivo</button>
+      <span style="font-size:11px; color:var(--ink-faint); font-family:var(--font-mono);">Edizione Offline Autonoma</span>
+    </div>
+  </header>
+
+  <!-- VIEW 1: TAVOLA DA DISEGNO -->
+  <main id="view-studio" class="container">
+    <!-- BARRA FOGLIO DI STUDIO ATTIVO E MODALITÀ -->
+    <div class="panel" style="margin-bottom:18px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+        <strong style="font-size:12px; color:var(--seal-cinnabar);">Foglio di Studio Attivo:</strong>
+        <div id="active-sheet-pills" style="display:flex; flex-wrap:wrap; gap:6px;"></div>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+        <div class="segmented">
+          <button type="button" class="seg-btn active" id="mode-single-btn" onclick="setCanvasMode('single')">1 Carattere Grande</button>
+          <button type="button" class="seg-btn" id="mode-multi-btn" onclick="setCanvasMode('multi')">Foglio Multi-Casella</button>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="switchTab('sheets')">+ Crea / Gestisci Fogli</button>
+      </div>
+    </div>
+
+    <div class="studio-grid">
+      <div>
+        <div class="panel">
+          <div class="toolbar-row">
+            <div>
+              <div style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Pennelli Tradizionali Cinesi (毛筆)</div>
+              <div class="segmented" id="brush-buttons"></div>
+            </div>
+            <div style="min-width:190px;">
+              <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                <span style="color:var(--ink-muted);">Spessore Setole</span>
+                <strong id="mm-label" style="font-family:var(--font-mono);">18 mm</strong>
+              </div>
+              <input type="range" min="4" max="36" value="18" style="width:100%;" oninput="updateMm(this.value)" />
+            </div>
+          </div>
+
+          <div class="toolbar-row">
+            <div>
+              <div style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Pietre d’Inchiostro (硯台)</div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;" id="ink-buttons"></div>
+            </div>
+            <div>
+              <div style="font-size:11px; color:var(--ink-muted); margin-bottom:4px;">Foglio di Riso & Griglia Tradizionale</div>
+              <div class="segmented" id="sheet-buttons"></div>
+            </div>
+          </div>
+
+          <div class="toolbar-row">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              <button type="button" class="btn btn-primary" id="watermark-btn" onclick="toggleWatermark()">Traccia Ricalco: ON</button>
+              <button type="button" class="btn btn-cinnabar" id="seal-btn" onclick="toggleSeal()">Sigillo (印): ON</button>
+              <input type="text" id="seal-input" value="墨韻" maxlength="4" style="width:56px; text-align:center; padding:5px; border:1px solid var(--border-strong); border-radius:4px; font-family:var(--font-calligraphy); color:var(--seal-cinnabar); font-weight:700;" oninput="updateSealText(this.value)" />
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button type="button" class="btn" onclick="undoStroke()">Annulla Tratto</button>
+              <button type="button" class="btn" onclick="clearCanvas()">Pulisci Foglio</button>
+              <button type="button" class="btn btn-primary" onclick="downloadPNG()">Scarica PNG</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="canvas-stage" id="canvas-container">
+          <canvas id="xuan-canvas" width="1000" height="1000"></canvas>
+        </div>
+      </div>
+
+      <!-- ISPETTORE DEL CARATTERE -->
+      <aside class="panel" id="inspector-panel"></aside>
+    </div>
+
+    <!-- BARRA DI SELEZIONE RAPIDA -->
+    <section class="panel" style="margin-top:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <h2 style="font-family:var(--font-serif); font-size:20px;" id="carousel-title">Selezione Rapida del Carattere Cinese (汉字)</h2>
+        <button type="button" class="btn btn-cinnabar" onclick="switchTab('library')">+ Nuovo Carattere</button>
+      </div>
+      <div class="carousel-strip" id="quick-carousel"></div>
+    </section>
+  </main>
+
+  <!-- VIEW 2: FOGLI DI STUDIO A NUMERO LIMITATO DI CARATTERI -->
+  <section id="view-sheets" class="container hidden">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--border-strong);">
+      <div>
+        <div class="meta-line"><span>Suddivisione Didattica in Singoli Fogli</span></div>
+        <h1 class="serif-title">Fogli di Studio a Numero Limitato di Caratteri</h1>
+        <p style="font-size:13px; color:var(--ink-muted);">Crea singoli fogli con 3, 4, 6, 8, 9 o 12 caratteri scegliendo sia tra quelli presenti sia inserendone di nuovi.</p>
+      </div>
+    </div>
+
+    <!-- COMPOSITORE NUOVO FOGLIO DI STUDIO -->
+    <div class="panel" style="margin-top:20px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+        <h2 style="font-family:var(--font-serif); font-size:22px;">Componi un Nuovo Foglio di Studio</h2>
+        <span id="sheet-builder-counter" style="font-family:var(--font-mono); font-size:12px; font-weight:600; color:var(--seal-cinnabar);">0 / 6 caratteri selezionati</span>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Titolo del Foglio *</label>
+          <input id="sheet-new-title" class="input-field" placeholder="Es. Foglio 5 · Pratica della Sera" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Note / Obiettivo</label>
+          <input id="sheet-new-sub" class="input-field" placeholder="Es. Studio concentrato su 4 o 6 caratteri" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Numero Massimo di Caratteri</label>
+          <select id="sheet-new-max" class="input-field" onchange="updateBuilderMax(this.value)">
+            <option value="3">Max 3 caratteri</option>
+            <option value="4">Max 4 caratteri</option>
+            <option value="6" selected>Max 6 caratteri</option>
+            <option value="8">Max 8 caratteri</option>
+            <option value="9">Max 9 caratteri</option>
+            <option value="12">Max 12 caratteri</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Griglia del Foglio</label>
+          <select id="sheet-new-grid" class="input-field">
+            <option value="mizige">Mi Zi Ge (米字格)</option>
+            <option value="tianzige">Tian Zi Ge (田字格)</option>
+            <option value="jiugongge">Jiu Gong Ge (九宫格)</option>
+            <option value="libera">Carta Libera (素宣紙)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Inserimento rapido di ALTRI caratteri non presenti -->
+      <div style="margin-top:14px; padding:12px; background:var(--bg-xuan); border:1px solid var(--border-strong); border-radius:6px; display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;">
+        <div style="flex:1; min-width:200px;">
+          <label style="font-size:11px; font-weight:600; color:var(--seal-cinnabar); display:block; margin-bottom:3px;">Inserisci Altri Caratteri nel Foglio (anche nuovi non in catalogo):</label>
+          <input id="sheet-quick-chars" class="input-field" placeholder="Digita o incolla uno o più caratteri es. 梅蘭竹菊 oppure 鶴..." />
+        </div>
+        <button type="button" class="btn btn-primary" onclick="quickAddCharsToBuilder()">+ Crea e Inserisci nel Foglio</button>
+      </div>
+
+      <div style="margin-top:14px;">
+        <div style="font-size:12px; font-weight:600;">Seleziona dai Caratteri in Catalogo (clicca per aggiungere/rimuovere dal foglio):</div>
+        <div class="picker-grid" id="sheet-picker-grid"></div>
+      </div>
+
+      <div style="margin-top:14px; display:flex; justify-content:flex-end;">
+        <button type="button" class="btn btn-cinnabar" onclick="saveNewStudySheet()">Salva Nuovo Foglio di Studio</button>
+      </div>
+    </div>
+
+    <div class="library-grid" id="sheets-list-grid"></div>
+  </section>
+
+  <!-- VIEW 3: BIBLIOTECA & CREATORE -->
+  <section id="view-library" class="container hidden">
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; padding-bottom:16px; border-bottom:1px solid var(--border-strong);">
+      <div>
+        <div class="meta-line"><span id="lib-count-label">Archivio di Calligrafia Cinese (中國書法)</span></div>
+        <h1 class="serif-title">Biblioteca Master & Creatore di Caratteri Cinesi</h1>
+      </div>
+      <div class="segmented" id="lib-filter-tabs"></div>
+    </div>
+
+    <div id="creator-box" class="panel" style="margin-top:20px;">
+      <h2 style="font-family:var(--font-serif); font-size:22px;">+ Nuovo Carattere Cinese (汉字)</h2>
+      <p style="font-size:12px; color:var(--ink-muted); margin-top:2px;">Digita o incolla qualsiasi ideogramma cinese da tastiera. Salvato in localStorage per il ricalco sui fogli Mi Zi Ge, Tian Zi Ge e Jiu Gong Ge.</p>
+      <div class="form-grid">
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Carattere Cinese (汉字) *</label>
+          <input id="new-char" class="input-field" placeholder="Es. 龍, 鶴, 蘭, 梅, 悟" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Categoria Tematica</label>
+          <select id="new-cat" class="input-field">
+            <option value="Fondamenti & Tao">Fondamenti & Tao (道)</option>
+            <option value="Natura & Paesaggio">Natura & Paesaggio (山水)</option>
+            <option value="Virtù Classiche">Virtù Classiche (德)</option>
+            <option value="Simboli & Cultura">Simboli & Cultura (雅)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Pinyin (Pronuncia) *</label>
+          <input id="new-pinyin" class="input-field" placeholder="Es. Lán" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Numero di Tratti</label>
+          <input id="new-strokes" type="number" value="8" min="1" max="36" class="input-field" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Significato Letterale *</label>
+          <input id="new-literal" class="input-field" placeholder="Es. Orchidea, grazia pura" />
+        </div>
+        <div>
+          <label style="font-size:11px; display:block; margin-bottom:3px;">Significato Poetico</label>
+          <input id="new-poetic" class="input-field" placeholder="Es. Il profumo silenzioso nella valle" />
+        </div>
+      </div>
+      <div style="margin-top:10px;">
+        <label style="font-size:11px; display:block; margin-bottom:3px;">Saggio Storico e Filosofico</label>
+        <textarea id="new-essay" rows="2" class="input-field" placeholder="Note sull'origine dell'ideogramma e sullo stile Kaishu..."></textarea>
+      </div>
+      <div style="margin-top:12px; display:flex; justify-content:flex-end;">
+        <button type="button" class="btn btn-primary" onclick="createNewCharacter()">Salva Carattere e Ricalca sul Foglio</button>
+      </div>
+    </div>
+
+    <div class="library-grid" id="library-cards"></div>
+  </section>
+
+  <!-- VIEW 4: SCHEDE DIDATTICHE (FLASHCARDS) -->
+  <section id="view-flashcards" class="container hidden">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-bottom:14px; border-bottom:1px solid var(--border-strong);">
+      <div>
+        <div class="meta-line"><span>Meditazione & Studio Calligrafico Cinese</span></div>
+        <h1 class="serif-title">Schede Didattiche (Flashcards 汉字)</h1>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button type="button" class="btn" onclick="prevFlashcard()">← Precedente</button>
+        <button type="button" class="btn btn-primary" onclick="flipFlashcard()">Volta Carta</button>
+        <button type="button" class="btn" onclick="nextFlashcard()">Successiva →</button>
+      </div>
+    </div>
+    <div class="flashcard-box" id="flashcard-stage" onclick="flipFlashcard()"></div>
+  </section>
+
+  <script>
+    const INITIAL_CHARACTERS = [{"id":"cn-yong","char":"永","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu (8 Principi)","pinyin":"Yǒng","radical":"水 (Acqua · 4 tratti)","strokeCount":5,"literalMeaning":"Eternità, perpetuità, fluire infinito dell’acqua","poeticMeaning":"Il corso incessante del tempo racchiuso negli Otto Tratti Fondamentali","philosophicalEssay":"Fin dall’epoca del grande maestro Wang Xizhi (IV secolo d.C.), il carattere 永 è il fondamento assoluto della calligrafia cinese. Attraverso la dottrina dello «Yǒngzì Bāfǎ» (永字八法), i suoi cinque tratti contengono tutte le otto dinamiche essenziali del pennello: dalla goccia iniziale che cade dall’alto fino all’onda finale che si distende.","strokeAnatomy":[{"step":1,"name":"側 (Cè / Diǎn) · Punto superiore","direction":"Alto-centro → Basso-destra","technique":"Appoggia la punta con decisione come una roccia che cade da una vetta e raccogli il pennello."},{"step":2,"name":"勒 (Lè / Héng) · Tratto orizzontale","direction":"Sinistra → Destra","technique":"Come tirare le redini di un destriero: lieve salita inclinata prima di svoltare con fermezza."},{"step":3,"name":"努 (Nǔ / Shù) · Pilastro verticale","direction":"Alto → Basso centrale","technique":"Scende con la forza di un arco teso, mantenendo la punta centrata (Zhōngfēng)."},{"step":4,"name":"趯 (Tì / Gōu) · Uncino inferiore","direction":"Base verticale → Scatto a sinistra","technique":"Concentra l’energia alla base del fusto e rilascia la punta con uno scatto netto verso l’alto-sinistra."},{"step":5,"name":"策 (Cè / Tí) · Ascesa obliqua sinistra","direction":"Sinistra-basso → Alto-destra","technique":"Tocco ascendente vigoroso che si assottiglia verso il pilastro centrale."},{"step":6,"name":"掠 (Lüè / Chángpiě) · Falciata lunga sinistra","direction":"Centro-sinistra → Basso-sinistra","technique":"Ampia curva fluida e distesa, simile a un pettine che attraversa una chioma."},{"step":7,"name":"啄 (Zhuó / Duǎnpiě) · Beccata corta destra","direction":"Alto-destra → Centro","technique":"Movimento rapido e nitido come il becco di un uccello che tocca il legno."},{"step":8,"name":"磔 (Zhé / Nà) · Onda distesa destra","direction":"Centro → Basso-destra","technique":"Premi gradualmente aprendo le setole e distendi il piede finale con solenne equilibrio."}]},{"id":"cn-dao","char":"道","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Dào","radical":"辶 (Cammino · 3 tratti)","strokeCount":12,"literalMeaning":"La Via, il Principio Cosmico, il Sentiero","poeticMeaning":"Camminare con la mente desta lungo il flusso silenzioso dell’universo","philosophicalEssay":"Unendo 首 (testa, origine, consapevolezza) al radicale del passo ritmico 辶, 道 indica tanto il principio ineffabile del Tao Te Ching di Laozi quanto il cammino interiore della calligrafia: ogni tratto è insieme respiro e presenza.","strokeAnatomy":[{"step":1,"name":"点 (Diǎn) · Scintilla sinistra","direction":"Alto-sinistra → Centro","technique":"Piccola goccia convergente che apre la corona di 首."},{"step":2,"name":"撇 (Piě) · Scintilla destra","direction":"Alto-destra → Centro","technique":"Risponde simmetricamente al primo punto."},{"step":3,"name":"横 (Héng) · Orizzonte di 首","direction":"Sinistra → Destra","technique":"Linea limpida che separa la sommità dal nucleo centrale."},{"step":4,"name":"撇 (Piě) · Breve raccordo","direction":"Centro → Basso-sinistra","technique":"Introduce il riquadro dell’occhio interiore (目)."},{"step":5,"name":"竖 (Shù) · Lato sinistro di 目","direction":"Alto → Basso","technique":"Verticale composta e dritta."},{"step":6,"name":"横折 (Héngzhé) · Cornice di 目","direction":"Sinistra → Destra → Basso","technique":"Angolo netto e parete destra parallela."},{"step":7,"name":"横 (Héng) · Prima linea interna","direction":"Sinistra → Destra","technique":"Suddivide lo spazio interno con respiro uniforme."},{"step":8,"name":"横 (Héng) · Seconda linea interna","direction":"Sinistra → Destra","technique":"Equidistante dalla precedente."},{"step":9,"name":"横 (Héng) · Base di 目","direction":"Sinistra → Destra","technique":"Chiude il nucleo centrale."},{"step":10,"name":"点 (Diǎn) · Passo iniziale di 辶","direction":"Alto-sinistra → Basso-destra","technique":"Punto alto e distaccato che guida il ritmo."},{"step":11,"name":"横折折撇 (Zhépiě) · Sentiero sinuoso","direction":"Sinistra → Basso","technique":"Movimento ondulato continuo che prepara la grande onda finale."},{"step":12,"name":"平捺 (Píngnà) · Grande onda portante","direction":"Sinistra → Estrema destra","technique":"Sostiene l’intero carattere come una barca sull’acqua."}]},{"id":"cn-he","char":"和","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Hé","radical":"禾 (Grano · 5 tratti)","strokeCount":8,"literalMeaning":"Armonia, pace, equilibrio consonante","poeticMeaning":"La spiga di grano che nutre ogni bocca nella giusta misura","philosophicalEssay":"Composto a sinistra dalla spiga di grano matura (禾) che si inchina per umiltà e a destra dalla bocca (口), 和 incarna il cuore del pensiero cinese: l’accordo vitale tra elementi diversi che convivono in reciproco rispetto.","strokeAnatomy":[{"step":1,"name":"平撇 (Píngpiě) · Cima della spiga","direction":"Destra → Sinistra","technique":"Tocco morbido inclinato che rappresenta la spiga piegata."},{"step":2,"name":"横 (Héng) · Traversa di 禾","direction":"Sinistra → Destra","technique":"Tratto orizzontale equilibrato."},{"step":3,"name":"竖 (Shù) · Stelo verticale","direction":"Alto → Basso","technique":"Fusto dritto e radicato che sostiene il lato sinistro."},{"step":4,"name":"撇 (Piě) · Foglia sinistra","direction":"Centro → Basso-sinistra","technique":"Espansione fluida verso l’esterno."},{"step":5,"name":"点 (Diǎn) · Goccia interna","direction":"Centro → Basso-destra","technique":"Contenuta in un punto per lasciare spazio a 口."},{"step":6,"name":"竖 (Shù) · Parete sinistra di 口","direction":"Alto → Basso","technique":"Lieve inclinazione convergente verso il basso."},{"step":7,"name":"横折 (Héngzhé) · Angolo superiore","direction":"Sinistra → Destra → Basso","technique":"Svolta ferma sull’angolo destro."},{"step":8,"name":"横 (Héng) · Chiusura di 口","direction":"Sinistra → Destra","technique":"Chiude la base lasciando respirare il vuoto interno."}]},{"id":"cn-chan","char":"禅","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Chán","radical":"礻 (Altare · 4 tratti)","strokeCount":12,"literalMeaning":"Meditazione silenziosa, contemplazione Chán","poeticMeaning":"Lo spirito che si raccoglie nella semplicità assoluta dell’Uno","philosophicalEssay":"Il carattere 禅 accosta il radicale del sacro (礻) a 单 (semplice, singolo, indiviso). Nella tradizione dei maestri calligrafi, tracciare 禅 significa lasciare che la mente abbandoni ogni dispersione e dimori interamente sulla punta del pennello.","strokeAnatomy":[{"step":1,"name":"点 (Diǎn) · Fiamma dell’altare","direction":"Alto → Basso-destra","technique":"Punto alto che guida il radicale sinistro."},{"step":2,"name":"横撇 (Héngpiě) · Ala di 礻","direction":"Sinistra → Destra → Basso-sinistra","technique":"Angolo vivo seguito da una falciata nitida."},{"step":3,"name":"竖 (Shù) · Colonna sacra","direction":"Centro → Basso","technique":"Verticale ferma e perfettamente perpendicolare."},{"step":4,"name":"点 (Diǎn) · Sigillo laterale","direction":"Centro → Destra","technique":"Piccolo tocco che rispetta la metà destra."},{"step":5,"name":"点 (Diǎn) · Seme sinistro","direction":"Alto → Basso-destra","technique":"Apre la corona di 单."},{"step":6,"name":"撇 (Piě) · Seme destro","direction":"Alto-destra → Basso-sinistra","technique":"Converge armoniosamente verso il centro."},{"step":7,"name":"竖 (Shù) · Parete sinistra","direction":"Alto → Basso","technique":"Lieve convergenza verso il basso."},{"step":8,"name":"横折 (Héngzhé) · Riquadro superiore","direction":"Sinistra → Destra → Basso","technique":"Struttura nitida e luminosa."},{"step":9,"name":"横 (Héng) · Orizzontale mediano","direction":"Sinistra → Destra","technique":"Divide il riquadro in due camere uguali."},{"step":10,"name":"横 (Héng) · Base del riquadro","direction":"Sinistra → Destra","technique":"Chiude il nucleo con precisione."},{"step":11,"name":"横 (Héng) · Grande traversa","direction":"Sinistra → Destra","technique":"Si estende con respiro ampio sotto il riquadro."},{"step":12,"name":"竖 (Shù) · Asse dell’unità","direction":"Centro → Basso","technique":"Scende come un filo a piombo attraversando il centro."}]},{"id":"cn-qi","char":"氣","category":"Fondamenti & Tao","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Qì","radical":"气 (Vapore · 4 tratti)","strokeCount":10,"literalMeaning":"Soffio vitale, energia cosmica, respiro","poeticMeaning":"Il vapore che sale dal riso caldo e anima ogni pennellata","philosophicalEssay":"Nella teoria estetica cinese, la prima legge della calligrafia è «Qìyùn Shēngdòng» (氣韻生動): la risonanza del soffio vitale. Unendo le nubi del respiro (气) al chicco di riso (米), 氣 rende visibile l’energia che scorre dal polso alla carta.","strokeAnatomy":[{"step":1,"name":"撇 (Piě) · Soffio ascendente","direction":"Alto → Basso-sinistra","technique":"Attacco nitido che apre la nube superiore."},{"step":2,"name":"横 (Héng) · Primo strato di nube","direction":"Sinistra → Destra","technique":"Tratto leggero e sospeso."},{"step":3,"name":"横 (Héng) · Secondo strato","direction":"Sinistra → Destra","technique":"Più corto e raccolto sotto il primo."},{"step":4,"name":"横斜钩 (Héngxiégōu) · Arco del vento","direction":"Sinistra → Destra → Basso-destra","technique":"Grande arco dorsale elastico che avvolge 米."},{"step":5,"name":"点 (Diǎn) · Chicco superiore sinistro","direction":"Alto-sinistra → Centro","technique":"Piccolo punto convergente."},{"step":6,"name":"撇 (Piě) · Chicco superiore destro","direction":"Alto-destra → Centro","technique":"Richiamo simmetrico."},{"step":7,"name":"横 (Héng) · Traversa di 米","direction":"Sinistra → Destra","technique":"Equilibra il cuore interno."},{"step":8,"name":"竖 (Shù) · Asse di 米","direction":"Alto → Basso","technique":"Verticale composta nel nido del vapore."},{"step":9,"name":"撇 (Piě) · Raggio interno sinistro","direction":"Centro → Basso-sinistra","technique":"Espansione morbida verso sinistra."},{"step":10,"name":"点 (Diǎn) · Raggio interno destro","direction":"Centro → Basso-destra","technique":"Punto allungato per armonizzarsi con l’arco esterno."}]},{"id":"cn-kong","char":"空","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Kōng","radical":"穴 (Volta · 5 tratti)","strokeCount":8,"literalMeaning":"Vuoto fecondo, cielo aperto, spaziosità","poeticMeaning":"Lo spazio silenzioso sotto la volta celeste dove tutto può nascere","philosophicalEssay":"In calligrafia cinese il bianco della carta («Jìbái», contare il bianco) ha lo stesso valore del nero dell’inchiostro. 空 ricorda che è proprio il vuoto tra i tratti a permettere alla forma di respirare.","strokeAnatomy":[{"step":1,"name":"点 (Diǎn) · Culmine della volta","direction":"Alto → Basso","technique":"Goccia centrale che inaugura l’architettura."},{"step":2,"name":"点 (Diǎn) · Parete sinistra","direction":"Alto → Basso-sinistra","technique":"Breve tratto inclinato."},{"step":3,"name":"横钩 (Hénggōu) · Grande volta","direction":"Sinistra → Destra con uncino","technique":"Ampia copertura che abbraccia il vuoto."},{"step":4,"name":"撇 (Piě) · Apertura sinistra di 穴","direction":"Centro → Basso-sinistra","technique":"Lascia filtrare l’aria sotto la volta."},{"step":5,"name":"点 (Diǎn) · Apertura destra di 穴","direction":"Centro → Basso-destra","technique":"Bilancia la parte superiore."},{"step":6,"name":"横 (Héng) · Architrave di 工","direction":"Sinistra → Destra","technique":"Tratto corto e centrato."},{"step":7,"name":"竖 (Shù) · Pilastro centrale","direction":"Alto → Basso","technique":"Collega cielo e terra nel cuore del carattere."},{"step":8,"name":"横 (Héng) · Fondamenta ampie","direction":"Sinistra → Destra","technique":"Orizzontale lungo e stabile che sigilla la base."}]},{"id":"cn-xin","char":"心","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Xīn","radical":"心 (Cuore · 4 tratti)","strokeCount":4,"literalMeaning":"Cuore, mente, intenzione profonda","poeticMeaning":"Un calice curvo che custodisce tre battiti di presenza","philosophicalEssay":"Per i calligrafi cinesi «Shū wéi Xīn huà» (書為心畫): la calligrafia è il dipinto del cuore-mente. Sebbene conti solo quattro tratti, la grande curva ad arco disteso (卧钩 Wògōu) e il triangolo dei tre punti rivelano istantaneamente la quiete interiore di chi scrive.","strokeAnatomy":[{"step":1,"name":"左点 (Zuǒdiǎn) · Battito sinistro","direction":"Alto → Basso-sinistra","technique":"Punto sospeso inclinato dolcemente verso l’esterno."},{"step":2,"name":"卧钩 (Wògōu) · Arco del cuore","direction":"Alto-sinistra → Base curva → Uncino","technique":"Curva ampia come una falce di luna con uncino rivolto al centro."},{"step":3,"name":"中点 (Zhōngdiǎn) · Cuore centrale","direction":"Centro → Basso-destra","technique":"Goccia raccolta nella conca dell’arco."},{"step":4,"name":"右点 (Yòudiǎn) · Battito esterno","direction":"Alto-destra → Basso-destra","technique":"Posto all’esterno dell’uncino per chiudere l’equilibrio."}]},{"id":"cn-jing","char":"静","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Jìng","radical":"青 (Azzurro · 8 tratti)","strokeCount":14,"literalMeaning":"Quiete limpida, calma interiore, silenzio","poeticMeaning":"La limpidezza dell’azzurro primaverile in cui cessa ogni contesa","philosophicalEssay":"Accostando 青 (la purezza del germoglio e del cielo terso) a 争 (tensione dinamica), 静 insegna che la quiete calligrafica non è inerzia, ma perfetto bilanciamento di forze opposte sulla pagina.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Primo tratto di 青","direction":"Sinistra → Destra","technique":"Tratto nitido e raccolto."},{"step":2,"name":"竖 (Shù) · Stelo superiore","direction":"Alto → Centro","technique":"Unisce i tre orizzontali superiori."},{"step":3,"name":"横 (Héng) · Secondo orizzontale","direction":"Sinistra → Destra","technique":"Più corto del primo."},{"step":4,"name":"横 (Héng) · Base superiore di 青","direction":"Sinistra → Destra","technique":"Si estende con fermezza."},{"step":5,"name":"竖 (Shù) · Colonna di 月","direction":"Centro → Basso","technique":"Verticale dritta inferiore sinistra."},{"step":6,"name":"横折钩 (Héngzhégōu) · Cornice di 月","direction":"Sinistra → Destra → Basso","technique":"Slanciata con uncino finale."},{"step":7,"name":"横 (Héng) · Raggio interno superiore","direction":"Sinistra → Destra","technique":"Tocco leggero."},{"step":8,"name":"横 (Héng) · Raggio interno inferiore","direction":"Sinistra → Destra","technique":"Parallelo al precedente."},{"step":9,"name":"撇 (Piě) · Cima di 争","direction":"Destra → Sinistra","technique":"Falciata breve in alto a destra."},{"step":10,"name":"横撇 (Héngpiě) · Raccordo obliquo","direction":"Sinistra → Destra → Basso-sinistra","technique":"Movimento agile verso il centro."},{"step":11,"name":"横折 (Héngzhé) · Angolo mediano","direction":"Sinistra → Destra → Basso","technique":"Definisce la camera centrale di 争."},{"step":12,"name":"横 (Héng) · Traversa sporgente","direction":"Sinistra → Estrema destra","technique":"Attraversa la struttura dando respiro."},{"step":13,"name":"横 (Héng) · Chiusura inferiore","direction":"Sinistra → Destra","technique":"Chiude il riquadro."},{"step":14,"name":"竖钩 (Shùgōu) · Ancora della quiete","direction":"Centro → Basso con uncino","technique":"Asse verticale fermo che sigilla il carattere."}]},{"id":"cn-shan","char":"山","category":"Natura & Paesaggio","styleLabel":"楷書 · Origine Pittografica","pinyin":"Shān","radical":"山 (Montagna · 3 tratti)","strokeCount":3,"literalMeaning":"Montagna, vetta sacra, stabilità","poeticMeaning":"Tre cime silenziose che congiungono la terra alle nubi","philosophicalEssay":"Nato dalle iscrizioni arcaiche come profilo di tre cime rocciose, 山 è il primo elemento della pittura e calligrafia di paesaggio (Shānshuǐ 山水). Con soli tre tratti insegna la legge della maestosità e della leggera inclinazione ascendente.","strokeAnatomy":[{"step":1,"name":"中竖 (Zhōngshù) · Vetta centrale sovrana","direction":"Alto → Basso centrale","technique":"Attacco deciso e fusto potente che governa l’intero spazio."},{"step":2,"name":"竖折 (Shùzhé) · Vetta sinistra e vallata","direction":"Mezza altezza → Basso → Destra","technique":"Scende a sinistra e piega salendo lievemente verso destra."},{"step":3,"name":"右竖 (Yòushù) · Vetta orientale","direction":"Mezza altezza → Basso","technique":"Chiude la base scendendo leggermente oltre l’orizzontale."}]},{"id":"cn-shui","char":"水","category":"Natura & Paesaggio","styleLabel":"楷書 · Origine Pittografica","pinyin":"Shuǐ","radical":"水 (Acqua · 4 tratti)","strokeCount":4,"literalMeaning":"Acqua, torrente, adattabilità fluida","poeticMeaning":"La corrente maestra fiancheggiata da vortici e increspature","philosophicalEssay":"Compagna inseparabile della montagna (山), l’acqua (水) incarna la suprema virtù taoista («Shàng shàn ruò shuǐ»): morbida ma capace di levigare la pietra più dura. I suoi quattro tratti uniscono un asse saldo a due ali centrifughe.","strokeAnatomy":[{"step":1,"name":"竖钩 (Shùgōu) · Corrente centrale","direction":"Alto → Basso con uncino","technique":"Spina dorsale verticale con uncino netto alla base."},{"step":2,"name":"横撇 (Héngpiě) · Onda sinistra","direction":"Sinistra → Destra → Basso-sinistra","technique":"Sfiora ma non tocca il fusto centrale, lasciando un varco di luce."},{"step":3,"name":"撇 (Piě) · Spruzzo destro","direction":"Alto-destra → Centro","technique":"Scende rapido verso il punto mediano del fusto."},{"step":4,"name":"捺 (Nà) · Grande onda destra","direction":"Centro → Basso-destra","technique":"Nasce dall’incontro col terzo tratto e si apre in un piede solenne."}]},{"id":"cn-guang","char":"光","category":"Natura & Paesaggio","styleLabel":"楷書 · Kaishu Classico","pinyin":"Guāng","radical":"儿 (Base umana · 2 tratti)","strokeCount":6,"literalMeaning":"Luce, splendore, chiarezza radiante","poeticMeaning":"Una fiamma alta sopra il capo per rischiarare l’oscurità","philosophicalEssay":"Nelle antiche iscrizioni su bronzo, 光 raffigurava una figura che regge sul capo un fuoco vivo. Nella calligrafia regolare i tre tratti superiori convergono verso l’orizzonte mediano, mentre i due tratti inferiori si aprono con luminosa stabilità.","strokeAnatomy":[{"step":1,"name":"竖 (Shù) · Fiamma centrale","direction":"Alto → Centro","technique":"Colonna centrale breve e ferma."},{"step":2,"name":"点 (Diǎn) · Scintilla sinistra","direction":"Sinistra → Basso-destra","technique":"Goccia sospesa che guarda verso il centro."},{"step":3,"name":"撇 (Piě) · Scintilla destra","direction":"Destra → Basso-sinistra","technique":"Tocco rapido che bilancia la corona."},{"step":4,"name":"横 (Héng) · Orizzonte luminoso","direction":"Sinistra → Destra","technique":"Tratto largo e limpido che divide fuoco e base."},{"step":5,"name":"撇 (Piě) · Raggio sinistro","direction":"Centro → Basso-sinistra","technique":"Curva fluida ed elastica."},{"step":6,"name":"竖弯钩 (Shùwāngōu) · Raggio disteso destro","direction":"Centro → Basso → Destra → Alto","technique":"Ampia base orizzontale con uncino finale rivolto al cielo."}]},{"id":"cn-feng","char":"風","category":"Natura & Paesaggio","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Fēng","radical":"風 (Vento · 9 tratti)","strokeCount":9,"literalMeaning":"Vento, brezza, stile calligrafico","poeticMeaning":"La vela spiegata che scuote le fronde e risveglia la primavera","philosophicalEssay":"In calligrafia cinese il termine «Fēnggé» (風格) indica lo stile e il carattere stesso dell’opera. Il grande mantello esterno di 風 richiede una curva arcuata ed elastica come una vela gonfiata dal vento.","strokeAnatomy":[{"step":1,"name":"竖撇 (Shùpiě) · Parete sinistra del vento","direction":"Alto → Basso-sinistra","technique":"Inizia verticale e si apre dolcemente alla base."},{"step":2,"name":"横斜钩 (Héngxiégōu) · Grande vela arcuata","direction":"Sinistra → Destra → Arco inferiore → Uncino","technique":"Curva elastica potente con uncino rivolto verso il cielo."},{"step":3,"name":"撇 (Piě) · Soffio superiore interno","direction":"Destra → Sinistra","technique":"Breve falciata sotto la volta."},{"step":4,"name":"竖 (Shù) · Lato sinistro di 虫","direction":"Alto → Basso","technique":"Piccolo tratto raccolto."},{"step":5,"name":"横折 (Héngzhé) · Cornice interna","direction":"Sinistra → Destra → Basso","technique":"Chiude il nucleo mediano."},{"step":6,"name":"横 (Héng) · Base del riquadro","direction":"Sinistra → Destra","technique":"Orizzontale nitido."},{"step":7,"name":"竖 (Shù) · Asse interno","direction":"Centro → Basso","technique":"Attraversa il cuore del carattere."},{"step":8,"name":"提 (Tí) · Slancio ascendente","direction":"Sinistra-basso → Destra-alto","technique":"Salita rapida che dialoga con il punto finale."},{"step":9,"name":"点 (Diǎn) · Goccia di chiusura","direction":"Centro → Basso-destra","technique":"Fissa il movimento interno."}]},{"id":"cn-yun","char":"雲","category":"Natura & Paesaggio","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Yún","radical":"雨 (Pioggia · 8 tratti)","strokeCount":12,"literalMeaning":"Nuvola, vapore celeste","poeticMeaning":"La pioggia sospesa nel cielo che si avvolge in volute silenziose","philosophicalEssay":"Sormontato dal radicale della pioggia (雨) con le sue quattro gocce simmetriche e chiuso alla base dalla spirale del vapore (云), 雲 insegna a bilanciare una cupola densa con una base aerea e raccolta.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Cielo di 雨","direction":"Sinistra → Destra","technique":"Orizzontale superiore fermo."},{"step":2,"name":"点 (Diǎn) · Parete sinistra della nube","direction":"Alto → Basso-sinistra","technique":"Breve tratto inclinato."},{"step":3,"name":"横钩 (Hénggōu) · Cupola della pioggia","direction":"Sinistra → Destra con uncino","technique":"Ampia copertura che abbraccia il carattere."},{"step":4,"name":"竖 (Shù) · Colonna mediana","direction":"Alto → Centro","technique":"Divide simmetricamente le gocce di pioggia."},{"step":5,"name":"点 (Diǎn) · Quattro gocce di 雨 (5-8)","direction":"Alto → Basso","technique":"Quattro tocchi ritmici disposti a coppie ai lati dell’asse."},{"step":9,"name":"横 (Héng) · Primo strato di 云","direction":"Sinistra → Destra","technique":"Orizzontale corto."},{"step":10,"name":"横 (Héng) · Grande strato di 云","direction":"Sinistra → Destra","technique":"Orizzontale ampio e disteso."},{"step":11,"name":"撇折 (Piězhé) · Voluta della nuvola","direction":"Centro → Basso-sinistra → Destra","technique":"Piega morbida che risale leggermente."},{"step":12,"name":"点 (Diǎn) · Goccia finale","direction":"Alto-sinistra → Basso-destra","technique":"Chiude la spirale inferiore."}]},{"id":"cn-yue","char":"月","category":"Natura & Paesaggio","styleLabel":"楷書 · Origine Pittografica","pinyin":"Yuè","radical":"月 (Luna · 4 tratti)","strokeCount":4,"literalMeaning":"Luna, mese, chiarore notturno","poeticMeaning":"La falce d’argento sospesa nel silenzio della notte","philosophicalEssay":"Cantata da poeti e calligrafi come Li Bai e Su Shi, 月 unisce la curva falcata sinistra alla verticalità cristallina del fusto destro. I due tratti interni devono lasciare respirare la luce bianca del foglio.","strokeAnatomy":[{"step":1,"name":"竖撇 (Shùpiě) · Arco lunare sinistro","direction":"Alto → Verticale → Curva a sinistra","technique":"Inizia dritto per due terzi e poi si apre dolcemente a sinistra."},{"step":2,"name":"横折钩 (Héngzhégōu) · Dorso della luna","direction":"Sinistra → Destra → Basso con uncino","technique":"Fusto lungo, slanciato e fermo concluso da un uncino nitido."},{"step":3,"name":"横 (Héng) · Primo raggio interno","direction":"Sinistra → Destra","technique":"Appoggia a sinistra e sfiora appena la parete destra."},{"step":4,"name":"横 (Héng) · Secondo raggio interno","direction":"Sinistra → Destra","technique":"Parallelo ed equidistante nella metà superiore."}]},{"id":"cn-hua","char":"花","category":"Natura & Paesaggio","styleLabel":"楷書 · Kaishu Classico","pinyin":"Huā","radical":"艹 (Erba · 3 tratti)","strokeCount":7,"literalMeaning":"Fiore, fioritura, bellezza naturale","poeticMeaning":"L’erba che si trasforma in corolla luminosa","philosophicalEssay":"Composto dal radicale erbaceo (艹) sopra 化 (trasformazione, metamorfosi), 花 celebra la fioritura come miracolo continuo di mutamento della natura.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Stelo orizzontale di 艹","direction":"Sinistra → Destra","technique":"Linea viva e leggermente ascendente."},{"step":2,"name":"竖 (Shù) · Gemma sinistra","direction":"Alto → Basso","technique":"Inclinata lievemente verso il centro."},{"step":3,"name":"竖 (Shù) · Gemma destra","direction":"Alto → Basso","technique":"Converge armoniosamente."},{"step":4,"name":"撇 (Piě) · Foglia sinistra di 化","direction":"Alto → Basso-sinistra","technique":"Falciata elegante."},{"step":5,"name":"竖 (Shù) · Stelo sinistro","direction":"Centro → Basso","technique":"Verticale sottile e salda."},{"step":6,"name":"撇 (Piě) · Petalo destro","direction":"Destra → Centro","technique":"Tocco rapido verso il fusto."},{"step":7,"name":"竖弯钩 (Shùwāngōu) · Calice fiorito","direction":"Alto → Basso → Destra → Uncino","technique":"Ampia curva finale che bilancia il fiore."}]},{"id":"cn-zhu","char":"竹","category":"Natura & Paesaggio","styleLabel":"楷書 · Origine Pittografica","pinyin":"Zhú","radical":"竹 (Bambù · 6 tratti)","strokeCount":6,"literalMeaning":"Bambù, integrità morale, resilienza","poeticMeaning":"Due canne cave e flessibili che si piegano al vento senza spezzarsi","philosophicalEssay":"Uno dei «Quattro Gentiluomini» (四君子) dell’arte cinese: vuoto all’interno per umiltà, dritto nei nodi per integrità. Sebbene le due metà di 竹 sembrino identiche, il calligrafo traccia la sinistra più raccolta e la destra più ampia.","strokeAnatomy":[{"step":1,"name":"撇 (Piě) · Foglia sinistra","direction":"Alto → Basso-sinistra","technique":"Tocco affilato come una foglia di bambù."},{"step":2,"name":"横 (Héng) · Nodo sinistro","direction":"Sinistra → Destra","technique":"Orizzontale breve e tonico."},{"step":3,"name":"竖 (Shù) · Canna sinistra","direction":"Alto → Basso","technique":"Verticale dritta senza uncino."},{"step":4,"name":"撇 (Piě) · Foglia destra","direction":"Alto → Basso-sinistra","technique":"Leggermente più alta della prima."},{"step":5,"name":"横 (Héng) · Nodo destro","direction":"Sinistra → Destra","technique":"Più disteso del nodo sinistro."},{"step":6,"name":"竖钩 (Shùgōu) · Canna maestra destra","direction":"Alto → Basso con uncino","technique":"Scende più in basso della sinistra e chiude con un uncino elastico."}]},{"id":"cn-ai","char":"爱","category":"Virtù Classiche","styleLabel":"楷書 · Kaishu Classico","pinyin":"Ài","radical":"爫 (Mano · 4 tratti)","strokeCount":10,"literalMeaning":"Amore, benevolenza, cura profonda","poeticMeaning":"Mani che accolgono e proteggono il legame dell’amicizia","philosophicalEssay":"Sormontato dal radicale della mano che accarezza (爫) e da un tetto protettivo (冖), 爱 custodisce alla base il segno dell’amico (友). Tracciarlo richiede tenerezza nei punti superiori e ampiezza nell’onda finale.","strokeAnatomy":[{"step":1,"name":"平撇 (Píngpiě) · Carezza superiore","direction":"Destra → Sinistra","technique":"Sfioramento quasi orizzontale."},{"step":2,"name":"点 (Diǎn) · Goccia sinistra","direction":"Alto → Basso","technique":"Primo tocco della corona."},{"step":3,"name":"点 (Diǎn) · Goccia centrale","direction":"Alto → Basso","technique":"Raccolta verso il centro."},{"step":4,"name":"撇 (Piě) · Goccia destra","direction":"Alto-destra → Sinistra","technique":"Chiude la mano superiore."},{"step":5,"name":"点 (Diǎn) · Pilastro sinistro del tetto","direction":"Alto → Basso-sinistra","technique":"Delimitazione sinistra."},{"step":6,"name":"横钩 (Hénggōu) · Tetto protettivo","direction":"Sinistra → Destra con uncino","technique":"Ampio orizzontale con uncino."},{"step":7,"name":"横 (Héng) · Ponte centrale","direction":"Sinistra → Destra","technique":"Raccordo equilibrato."},{"step":8,"name":"撇 (Piě) · Apertura di 友","direction":"Centro → Basso-sinistra","technique":"Lunga falciata che apre la base."},{"step":9,"name":"横撇 (Héngpiě) · Abbraccio incrociato","direction":"Sinistra → Destra → Basso-sinistra","technique":"Svolta fluida che incrocia il tratto precedente."},{"step":10,"name":"捺 (Nà) · Onda conclusiva","direction":"Centro → Basso-destra","technique":"Distensione piena che radica l’ideogramma."}]},{"id":"cn-ren","char":"仁","category":"Virtù Classiche","styleLabel":"楷書 · Virtù Confuciana","pinyin":"Rén","radical":"亻 (Uomo · 2 tratti)","strokeCount":4,"literalMeaning":"Umanità, benevolenza reciproca, empatia","poeticMeaning":"L’essere umano che si riconosce nell’incontro con l’altro","philosophicalEssay":"Virtù suprema dei Dialoghi di Confucio, 仁 unisce la persona (亻) al numero due (二): l’umanità fiorisce nella relazione armoniosa tra due esseri. Nella sua estrema semplicità di quattro tratti esige proporzione impeccabile.","strokeAnatomy":[{"step":1,"name":"撇 (Piě) · Spalla di 亻","direction":"Alto → Basso-sinistra","technique":"Falciata obliqua misurata."},{"step":2,"name":"竖 (Shù) · Presenza verticale","direction":"Centro-sinistra → Basso","technique":"Fusto dritto che sostiene il lato sinistro."},{"step":3,"name":"横 (Héng) · Tratto celeste di 二","direction":"Sinistra → Destra","technique":"Orizzontale superiore corto e raccolto."},{"step":4,"name":"横 (Héng) · Tratto terrestre di 二","direction":"Sinistra → Destra","technique":"Orizzontale inferiore lungo, calmo e radicato."}]},{"id":"cn-yi","char":"義","category":"Virtù Classiche","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Yì","radical":"羊 (Agnello · 6 tratti)","strokeCount":13,"literalMeaning":"Rettitudine, giustizia, nobiltà d’animo","poeticMeaning":"Portare sul proprio capo ciò che è buono e giusto","philosophicalEssay":"Composto in alto da 羊 (simbolo antico di bontà e auspicio) e in basso da 我 (sé stessi), 義 rappresenta la dignità morale. Il grande tratto obliquo uncinato finale (斜钩 Xiégōu) richiede uno slancio deciso.","strokeAnatomy":[{"step":1,"name":"点 (Diǎn) · Corno sinistro di 羊","direction":"Alto-sinistra → Centro","technique":"Goccia convergente."},{"step":2,"name":"撇 (Piě) · Corno destro di 羊","direction":"Alto-destra → Centro","technique":"Richiamo simmetrico."},{"step":3,"name":"横 (Héng) · Prima traversa di 羊","direction":"Sinistra → Destra","technique":"Orizzontale nitido."},{"step":4,"name":"竖 (Shù) · Asse superiore","direction":"Alto → Centro","technique":"Unisce le tre traverse di 羊."},{"step":5,"name":"横 (Héng) · Seconda traversa","direction":"Sinistra → Destra","technique":"Più corta e raccolta."},{"step":6,"name":"横 (Héng) · Base di 羊","direction":"Sinistra → Destra","technique":"Ampia traversa divisoria."},{"step":7,"name":"撇 (Piě) · Apertura di 我","direction":"Destra → Sinistra","technique":"Breve tocco inclinato a sinistra."},{"step":8,"name":"横 (Héng) · Traversa di 我","direction":"Sinistra → Destra","technique":"Attraversa tutta la parte inferiore."},{"step":9,"name":"竖钩 (Shùgōu) · Pilastro sinistro","direction":"Alto → Basso con uncino","technique":"Ancoraggio verticale sinistro."},{"step":10,"name":"提 (Tí) · Slancio obliquo","direction":"Sinistra → Destra-alto","technique":"Taglia il pilastro con vigore."},{"step":11,"name":"斜钩 (Xiégōu) · Grande lancia obliqua","direction":"Centro-alto → Basso-destra con uncino","technique":"Tratto maestro: curva tesa come un arco fino all’uncino finale."},{"step":12,"name":"撇 (Piě) · Incrocio sulla lancia","direction":"Destra → Sinistra","technique":"Taglia la lancia obliqua."},{"step":13,"name":"点 (Diǎn) · Sigillo superiore destro","direction":"Alto → Basso-destra","technique":"Goccia finale in alto a destra."}]},{"id":"cn-li","char":"禮","category":"Virtù Classiche","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Lǐ","radical":"礻 (Altare · 4 tratti)","strokeCount":17,"literalMeaning":"Rito, cortesia, armonia del gesto","poeticMeaning":"Un vaso rituale colmo di offerte davanti all’altare dello spirito","philosophicalEssay":"Nella cultura cinese 禮 non è semplice etichetta formale, ma la musica visibile dei gesti quotidiani — incluso il modo in cui ci si siede davanti al foglio di riso e si impugna il pennello.","strokeAnatomy":[{"step":1,"name":"礻 (Shì) · Radicale dell’altare (tratti 1-4)","direction":"Sinistra","technique":"Punto superiore, ala piegata, colonna verticale e punto laterale."},{"step":2,"name":"曲 (Qū) · Coppa rituale superiore (tratti 5-10)","direction":"Destra-alto","technique":"Riquadro attraversato da due verticali simmetriche e chiuso con cura."},{"step":3,"name":"豆 (Dòu) · Calice di base (tratti 11-17)","direction":"Destra-basso","technique":"Orizzontale, piccolo riquadro centrale, due tocchi convergenti e lunga base finale."}]},{"id":"cn-zhi","char":"智","category":"Virtù Classiche","styleLabel":"楷書 · Kaishu Classico","pinyin":"Zhì","radical":"日 (Sole · 4 tratti)","strokeCount":12,"literalMeaning":"Saggezza, discernimento luminoso, conoscenza","poeticMeaning":"La parola precisa come una freccia illuminata dalla chiarezza del sole","philosophicalEssay":"Unendo 知 (sapere: la freccia 矢 e la parola 口) al sole (日) posto alla base, 智 descrive una conoscenza che non resta astratta, ma risplende con la limpidezza della luce solare.","strokeAnatomy":[{"step":1,"name":"矢 (Shǐ) · La freccia del sapere (tratti 1-5)","direction":"Alto-sinistra","technique":"Breve falciata, due orizzontali, lunga curva sinistra e punto destro."},{"step":2,"name":"口 (Kǒu) · La parola giusta (tratti 6-8)","direction":"Alto-destra","technique":"Riquadro raccolto e ben allineato a destra di 矢."},{"step":3,"name":"日 (Rì) · Il sole alla base (tratti 9-12)","direction":"Centro-basso","technique":"Riquadro solare luminoso con tratto mediano equidistante."}]},{"id":"cn-xin-trust","char":"信","category":"Virtù Classiche","styleLabel":"楷書 · Kaishu Classico","pinyin":"Xìn","radical":"亻 (Uomo · 2 tratti)","strokeCount":9,"literalMeaning":"Fiducia, sincerità, parola autentica","poeticMeaning":"L’essere umano che dimora fedelmente accanto alla propria parola","philosophicalEssay":"Tra gli ideogrammi composti (Huìyì) più limpidi della lingua cinese: a sinistra l’essere umano (亻), a destra la parola (言). Essere degni di fiducia significa che la persona e la sua parola formano una cosa sola.","strokeAnatomy":[{"step":1,"name":"撇 (Piě) · Spalla di 亻","direction":"Alto → Basso-sinistra","technique":"Inclinazione ferma e leale."},{"step":2,"name":"竖 (Shù) · Colonna di 亻","direction":"Centro-sinistra → Basso","technique":"Verticale dritta."},{"step":3,"name":"点 (Diǎn) · Voce superiore di 言","direction":"Alto → Basso-destra","technique":"Punto alto sull’asse destro."},{"step":4,"name":"横 (Héng) · Grande traversa di 言","direction":"Sinistra → Destra","technique":"Tratto largo e nitido."},{"step":5,"name":"横 (Héng) · Prima nota vocale","direction":"Sinistra → Destra","technique":"Orizzontale corto."},{"step":6,"name":"横 (Héng) · Seconda nota vocale","direction":"Sinistra → Destra","technique":"Parallelo ed equidistante."},{"step":7,"name":"竖 (Shù) · Lato sinistro di 口","direction":"Alto → Basso","technique":"Apre la base della parola."},{"step":8,"name":"横折 (Héngzhé) · Cornice di 口","direction":"Sinistra → Destra → Basso","technique":"Angolo netto."},{"step":9,"name":"横 (Héng) · Sigillo di 口","direction":"Sinistra → Destra","technique":"Chiude la base con rigore."}]},{"id":"cn-cha","char":"茶","category":"Simboli & Cultura","styleLabel":"楷書 · Cultura del Tè","pinyin":"Chá","radical":"艹 (Erba · 3 tratti)","strokeCount":9,"literalMeaning":"Tè, pianta del tè, infuso meditativo","poeticMeaning":"L’uomo in quiete tra le erbe selvatiche e gli alberi del bosco","philosophicalEssay":"La struttura di 茶 è un’architettura poetica: in alto i germogli erbacei (艹), al centro l’essere umano (人) raccolto come sotto il tetto di un padiglione, e in basso l’albero (木). Calligrafia e tè condividono la stessa acqua e la stessa quiete.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Corona erbacea","direction":"Sinistra → Destra","technique":"Tratto orizzontale arioso."},{"step":2,"name":"竖 (Shù) · Germoglio sinistro","direction":"Alto → Basso","technique":"Breve tratto convergente."},{"step":3,"name":"竖 (Shù) · Germoglio destro","direction":"Alto → Basso","technique":"Simmetrico al precedente."},{"step":4,"name":"撇 (Piě) · Falda sinistra di 人","direction":"Centro → Esterno sinistra","technique":"Ampia falciata protettiva."},{"step":5,"name":"捺 (Nà) · Falda destra di 人","direction":"Centro → Esterno destra","technique":"Distesa simmetrica che abbraccia la base."},{"step":6,"name":"横 (Héng) · Ramo orizzontale","direction":"Sinistra → Destra","technique":"Tratto corto sotto il tetto."},{"step":7,"name":"竖钩 (Shùgōu) · Tronco centrale","direction":"Alto → Basso con uncino","technique":"Asse di simmetria perfetto."},{"step":8,"name":"撇 (Piě) · Radice sinistra","direction":"Centro → Basso-sinistra","technique":"Tocco morbido verso l’esterno."},{"step":9,"name":"点 (Diǎn) · Radice destra","direction":"Centro → Basso-destra","technique":"Goccia ferma che bilancia la base."}]},{"id":"cn-long","char":"龙","category":"Simboli & Cultura","styleLabel":"楷書 · Simbolo Imperiale","pinyin":"Lóng","radical":"龙 (Drago · 5 tratti)","strokeCount":5,"literalMeaning":"Drago celeste, slancio vitale delle nubi","poeticMeaning":"Lo spirito che danza tra gli abissi d’acqua e le vette del cielo","philosophicalEssay":"Nella tradizione cinese il drago (龙) simboleggia il mutamento fecondo delle nubi e della pioggia primaverile. Spesso i maestri paragonano il movimento dinamico del pennello al «drago che balza nella porta celeste».","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Orizzonte delle nubi","direction":"Sinistra → Destra","technique":"Tratto deciso e leggermente ascendente."},{"step":2,"name":"撇 (Piě) · Slancio dorsale","direction":"Alto-centro → Basso-sinistra","technique":"Lunga curva dinamica che attraversa la diagonale."},{"step":3,"name":"竖弯钩 (Shùwāngōu) · Coda del drago","direction":"Centro → Basso → Destra → Alto","technique":"Curva ampia alla base con scatto verticale verso l’alto."},{"step":4,"name":"撇 (Piě) · Artiglio interno","direction":"Alto-destra → Centro","technique":"Tratto rapido che incrocia il dorso."},{"step":5,"name":"点 (Diǎn) · Perla luminosa","direction":"Alto-destra → Basso-destra","technique":"Goccia finale sospesa in alto a destra."}]},{"id":"cn-fu","char":"福","category":"Simboli & Cultura","styleLabel":"楷書 · Auspicio Tradizionale","pinyin":"Fú","radical":"礻 (Altare · 4 tratti)","strokeCount":13,"literalMeaning":"Fortuna, benedizione, felicità piena","poeticMeaning":"Un tetto, una bocca sfamata e un campo fertile sotto la grazia del cielo","philosophicalEssay":"Il carattere più tracciato su carta rossa e carta di riso durante il Capodanno Cinese. A sinistra l’altare beneaugurante (礻), a destra l’unità (一), una bocca (口) e un campo coltivato (田): l’essenza della pace domestica.","strokeAnatomy":[{"step":1,"name":"点 (Diǎn) · Luce dell’altare","direction":"Alto → Basso-destra","technique":"Goccia iniziale."},{"step":2,"name":"横撇 (Héngpiě) · Ala di 礻","direction":"Sinistra → Destra → Basso-sinistra","technique":"Svolta elastica."},{"step":3,"name":"竖 (Shù) · Colonna sinistra","direction":"Centro → Basso","technique":"Fusto dritto."},{"step":4,"name":"点 (Diǎn) · Tocco laterale","direction":"Centro → Destra","technique":"Breve punto."},{"step":5,"name":"横 (Héng) · Cielo di 一","direction":"Sinistra → Destra","technique":"Orizzontale alto a destra."},{"step":6,"name":"竖 (Shù) · Lato sinistro di 口","direction":"Alto → Basso","technique":"Raccolto."},{"step":7,"name":"横折 (Héngzhé) · Angolo di 口","direction":"Sinistra → Destra → Basso","technique":"Nitido."},{"step":8,"name":"横 (Héng) · Base di 口","direction":"Sinistra → Destra","technique":"Chiude il piccolo riquadro."},{"step":9,"name":"竖 (Shù) · Parete sinistra di 田","direction":"Alto → Basso","technique":"Apre il campo fertile."},{"step":10,"name":"横折 (Héngzhé) · Cornice di 田","direction":"Sinistra → Destra → Basso","technique":"Più larga di 口 per dare stabilità."},{"step":11,"name":"横 (Héng) · Solco orizzontale","direction":"Sinistra → Destra","technique":"Divide il campo."},{"step":12,"name":"竖 (Shù) · Solco verticale","direction":"Alto → Basso","technique":"Incrocia al centro di 田."},{"step":13,"name":"横 (Héng) · Chiusura di 田","direction":"Sinistra → Destra","technique":"Sigilla i quattro quadranti del campo."}]},{"id":"cn-shou","char":"壽","category":"Simboli & Cultura","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Shòu","radical":"士 (Saggio · 3 tratti)","strokeCount":14,"literalMeaning":"Longevità, vita lunga e serena","poeticMeaning":"Lo scorrere armonioso degli anni misurato con saggezza","philosophicalEssay":"Nella tradizione calligrafica esistono i «Cento Modi di scrivere Shòu» (百壽圖). La sua architettura verticale alterna traverse ritmiche a un solco sinuoso centrale, concluso alla base dalla misura del tempo (寸).","strokeAnatomy":[{"step":1,"name":"士 (Shì) · Corona superiore (tratti 1-3)","direction":"Alto","technique":"Orizzontale lungo, asse verticale e orizzontale corto."},{"step":2,"name":"横钩 + 工 · Fascia mediana (tratti 4-7)","direction":"Centro-alto","technique":"Volta ampia che racchiude la struttura centrale."},{"step":3,"name":"一 + 口 · Respiro del tempo (tratti 8-11)","direction":"Centro-basso","technique":"Traversa e piccolo riquadro raccolto a sinistra."},{"step":4,"name":"寸 (Cùn) · La misura saggia (tratti 12-14)","direction":"Base","technique":"Orizzontale, pilastro uncinato e goccia centrale."}]},{"id":"cn-meng","char":"夢","category":"Simboli & Cultura","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Mèng","radical":"夕 (Crepuscolo · 3 tratti)","strokeCount":13,"literalMeaning":"Sogno, visione notturna, ispirazione","poeticMeaning":"Ciò che lo sguardo interiore contempla sotto il manto della sera","philosophicalEssay":"Celebre per il paradosso filosofico di Zhuangzi che sognò di essere una farfalla, 夢 scende dalla corona erbacea attraverso lo sguardo velato fino alla falce lunare del crepuscolo (夕) alla base.","strokeAnatomy":[{"step":1,"name":"艹 (Cǎo) · Corona notturna (tratti 1-3)","direction":"Alto","technique":"Orizzontale e due steli convergenti."},{"step":2,"name":"罒 (Wǎng) · Lo sguardo velato (tratti 4-8)","direction":"Centro-alto","technique":"Riquadro largo diviso in tre camere luminose."},{"step":3,"name":"冖 (Mì) · Il manto della sera (tratti 9-10)","direction":"Centro","technique":"Punto sinistro e ampia copertura uncinata."},{"step":4,"name":"夕 (Xī) · Falce del crepuscolo (tratti 11-13)","direction":"Base","technique":"Curva sinistra, lunga diagonale portante e goccia interna."}]},{"id":"cn-shu","char":"書","category":"Simboli & Cultura","styleLabel":"楷書 · L’Arte Calligrafica","pinyin":"Shū","radical":"曰 (Dire · 4 tratti)","strokeCount":10,"literalMeaning":"Scrittura, libro, arte calligrafica (Shūfǎ)","poeticMeaning":"La mano che impugna il pennello verticale per dar voce al pensiero","philosophicalEssay":"La parte superiore di 書 raffigura una mano (聿) che regge in verticale il pennello calligrafico, mentre alla base 曰 rappresenta la parola che prende forma sulla pagina. È l’emblema stesso dello Studio Calligrafico.","strokeAnatomy":[{"step":1,"name":"横折 (Héngzhé) · Impugnatura del pennello","direction":"Sinistra → Destra → Basso","technique":"Angolo superiore saldo."},{"step":2,"name":"横 (Héng) · Grande traversa maestra","direction":"Sinistra → Estrema destra","technique":"Tratto orizzontale più ampio dell’intero carattere."},{"step":3,"name":"横 (Héng) · Terza linea","direction":"Sinistra → Destra","technique":"Chiude le dita che reggono il pennello."},{"step":4,"name":"横 (Héng) · Quarta linea","direction":"Sinistra → Destra","technique":"Parallela ed equidistante."},{"step":5,"name":"竖 (Shù) · L’asta del pennello","direction":"Cima → Centro","technique":"Attraversa perfettamente al centro tutte le traverse superiori."},{"step":6,"name":"横 (Héng) · Tavola di scrittura","direction":"Sinistra → Destra","technique":"Base di 聿."},{"step":7,"name":"竖 (Shù) · Parete sinistra di 曰","direction":"Alto → Basso","technique":"Apre il cartiglio inferiore."},{"step":8,"name":"横折 (Héngzhé) · Cornice di 曰","direction":"Sinistra → Destra → Basso","technique":"Riquadro largo e stabile."},{"step":9,"name":"横 (Héng) · Rigo interno","direction":"Sinistra → Destra","technique":"Tocco mediano."},{"step":10,"name":"横 (Héng) · Chiusura di 書","direction":"Sinistra → Destra","technique":"Sigilla l’opera con equilibrio."}]},{"id":"cn-yuan","char":"緣","category":"Simboli & Cultura","styleLabel":"楷書 · Forma Tradizionale","pinyin":"Yuán","radical":"糸 (Filo di seta · 6 tratti)","strokeCount":15,"literalMeaning":"Destino, legame provvidenziale, affinità","poeticMeaning":"Fili di seta invisibili che uniscono gli incontri della vita","philosophicalEssay":"Nella poesia e nel pensiero cinese, 緣 (Yuánfèn) è la trama segreta che fa incontrare le persone e le opere d’arte nel momento propizio, come il filo di seta (糸) che lega due lembi di un abito.","strokeAnatomy":[{"step":1,"name":"糸 (Mì) · Il filo di seta (tratti 1-6)","direction":"Sinistra","technique":"Doppio intreccio superiore, punto di tenuta, fusto e due tocchi alla base."},{"step":2,"name":"彑 (Jì) · L’innesto superiore (tratti 7-9)","direction":"Destra-alto","technique":"Piega acuta e traversa nitida."},{"step":3,"name":"豕 (Shǐ) · L’intreccio fluente (tratti 10-15)","direction":"Destra-basso","technique":"Spina dorsale arcuata con tre falciate sinistre e un’onda finale destra."}]},{"id":"cn-chun","char":"春","category":"Natura & Paesaggio","styleLabel":"楷書 · Kaishu Classico","pinyin":"Chūn","radical":"日 (Sole · 4 tratti)","strokeCount":9,"literalMeaning":"Primavera, rinascita, giovinezza","poeticMeaning":"I germogli che spuntano dalla terra riscaldata dal sole nuovo","philosophicalEssay":"Tre tratti orizzontali ritmici attraversati da un’ampia apertura a padiglione che abbraccia il sole (日) nascente: 春 è un esercizio magistrale di spaziatura tra linee parallele e aperture diagonali.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Prima brezza di primavera","direction":"Sinistra → Destra","technique":"Orizzontale superiore medio."},{"step":2,"name":"横 (Héng) · Seconda brezza","direction":"Sinistra → Destra","technique":"Più corto e raccolto."},{"step":3,"name":"横 (Héng) · Orizzonte della terra","direction":"Sinistra → Destra","technique":"Ampio e luminoso."},{"step":4,"name":"撇 (Piě) · Grande falciata sinistra","direction":"Cima centrale → Esterno sinistra","technique":"Attraversa le tre traverse aprendosi a ventaglio."},{"step":5,"name":"捺 (Nà) · Grande onda destra","direction":"Centro → Esterno destra","technique":"Bilancia simmetricamente la falciata sinistra."},{"step":6,"name":"日 (Rì) · Il sole primaverile (tratti 6-9)","direction":"Centro-basso","technique":"Riquadro solare raccolto sotto il padiglione."}]},{"id":"cn-qiu","char":"秋","category":"Natura & Paesaggio","styleLabel":"楷書 · Kaishu Classico","pinyin":"Qiū","radical":"禾 (Grano · 5 tratti)","strokeCount":9,"literalMeaning":"Autunno, raccolto dorato, maturità","poeticMeaning":"La spiga di grano matura che splende dei colori del fuoco","philosophicalEssay":"Affiancando la spiga di grano (禾) al fuoco (火), 秋 evoca il calore ambrato del raccolto autunnale e il cielo terso in cui i letterati salivano sulle colline per comporre versi.","strokeAnatomy":[{"step":1,"name":"禾 (Hé) · La spiga matura (tratti 1-5)","direction":"Sinistra","technique":"Cima inclinata, traversa, stelo dritto e apertura equilibrata."},{"step":2,"name":"火 (Huǒ) · Il bagliore d’autunno (tratti 6-9)","direction":"Destra","technique":"Due scintille laterali, lunga curva sinistra e onda finale destra."}]},{"id":"cn-tian","char":"天","category":"Fondamenti & Tao","styleLabel":"楷書 · Kaishu Classico","pinyin":"Tiān","radical":"大 (Grande · 3 tratti)","strokeCount":4,"literalMeaning":"Cielo, firmamento, ordine naturale","poeticMeaning":"La volta suprema che sovrasta la grandezza dell’uomo","philosophicalEssay":"Sormontando la figura umana a braccia aperte (大) con il tratto dell’altezza suprema (一), 天 rappresenta il Cielo nella cosmologia cinese. Quattro tratti essenziali in cui ogni millimetro conta.","strokeAnatomy":[{"step":1,"name":"横 (Héng) · Volta suprema","direction":"Sinistra → Destra","technique":"Tratto fermo e leggermente più corto del secondo."},{"step":2,"name":"横 (Héng) · Orizzonte mediano","direction":"Sinistra → Destra","technique":"Più ampio per sostenere la struttura."},{"step":3,"name":"撇 (Piě) · Arco sinistro","direction":"Centro → Basso-sinistra","technique":"Inizia quasi verticale e si apre con grazia."},{"step":4,"name":"捺 (Nà) · Onda destra","direction":"Centro → Basso-destra","technique":"Piede pieno e solenne che radica il carattere."}]},{"id":"cn-de","char":"德","category":"Virtù Classiche","styleLabel":"楷書 · Virtù del Tao","pinyin":"Dé","radical":"彳 (Passo · 3 tratti)","strokeCount":15,"literalMeaning":"Virtù, rettitudine del cuore, integrità in azione","poeticMeaning":"Camminare con sguardo dritto e cuore integro","philosophicalEssay":"Secondo termine del «Tao Te Ching» (道德經), 德 unisce il passo (彳), lo sguardo dritto (直) e il cuore (心): la virtù è l’armonia perfetta tra ciò che l’occhio vede, ciò che il cuore sente e il passo che compiamo.","strokeAnatomy":[{"step":1,"name":"彳 (Chì) · Il passo retto (tratti 1-3)","direction":"Sinistra","technique":"Due falciate parallele e una colonna verticale salda."},{"step":2,"name":"十 + 四 + 一 · Lo sguardo dritto (tratti 4-11)","direction":"Destra-alto","technique":"Croce superiore, occhio orizzontale e linea d’integrità."},{"step":3,"name":"心 (Xīn) · Il cuore di base (tratti 12-15)","direction":"Destra-basso","technique":"Ampio calice curvo con i tre punti della consapevolezza."}]},{"id":"cn-ya","char":"雅","category":"Simboli & Cultura","styleLabel":"楷書 · Estetica dei Letterati","pinyin":"Yǎ","radical":"隹 (Uccello · 8 tratti)","strokeCount":12,"literalMeaning":"Eleganza, raffinatezza classica, grazia","poeticMeaning":"L’armonia sobria e nobile dello studio del calligrafo","philosophicalEssay":"Parola chiave dell’estetica dei letterati cinesi (Wénrén 文人): indica la grazia priva di volgarità o eccesso, esattamente come la carta di riso naturale e l’inchiostro di pino.","strokeAnatomy":[{"step":1,"name":"牙 (Yá) · Struttura sinistra (tratti 1-4)","direction":"Sinistra","technique":"Traversa, piega angolare, fusto uncinato e falciata."},{"step":2,"name":"隹 (Zhuī) · Ali raccolte (tratti 5-12)","direction":"Destra","technique":"Colonna sinistra, punto superiore e quattro traverse orizzontali ritmiche."}]}];
+    const INITIAL_STUDY_SHEETS = [{"id":"sheet-fondamenti-4","title":"Foglio I · I Quattro Pilastri dell’Inizio","subtitle":"Studio concentrato su 4 ideogrammi cardinali: Eternità, Cielo, Via e Cuore.","maxCharacters":4,"preferredGrid":"mizige","characterIds":["cn-yong","cn-tian","cn-dao","cn-xin"],"createdAt":"Collezione Base"},{"id":"sheet-natura-6","title":"Foglio II · Armonia del Paesaggio (山水)","subtitle":"Sei caratteri della natura per esercitare l’equilibrio tra tratti verticali e onde fluide.","maxCharacters":6,"preferredGrid":"tianzige","characterIds":["cn-shan","cn-shui","cn-feng","cn-yun","cn-yue","cn-guang"],"createdAt":"Collezione Base"},{"id":"sheet-zen-6","title":"Foglio III · Lo Spirito dello Studio Zen","subtitle":"Sei caratteri dedicati alla meditazione, al silenzio interiore e al rito del tè.","maxCharacters":6,"preferredGrid":"jiugongge","characterIds":["cn-chan","cn-jing","cn-kong","cn-qi","cn-cha","cn-shu"],"createdAt":"Collezione Base"},{"id":"sheet-virtu-6","title":"Foglio IV · Le Virtù Classiche (五常)","subtitle":"Sei ideogrammi etici fondamentali della tradizione confuciana e taoista.","maxCharacters":6,"preferredGrid":"mizige","characterIds":["cn-ren","cn-yi","cn-li","cn-zhi","cn-xin-trust","cn-de"],"createdAt":"Collezione Base"}];
+    const BRUSHES = [{"id":"capra","name":"Capra Morbido","chineseName":"羊毫 · Yángháo","subtitle":"Morbido e assorbente","description":"Setole bianche flessibili che trattengono molto inchiostro, ideali per tratti pieni, rotondi e meditativi.","minRatio":0.38,"maxRatio":1.3,"smoothing":0.72},{"id":"lupo","name":"Lupo Elastico","chineseName":"狼毫 · Lángháo","subtitle":"Affilato e reattivo","description":"Setole toniche ad alta elasticità: punta d’ago nitida, spigoli incisivi e forte contrasto con la velocità.","minRatio":0.15,"maxRatio":1.38,"smoothing":0.5},{"id":"misto","name":"Misto Imperiale","chineseName":"兼毫 · Jiānháo","subtitle":"Equilibrio e Feibai","description":"Anima interna rigida di lupo avvolta da setole morbide di capra: produce un autentico effetto «Feibai» (bianco volante) nei tratti rapidi.","minRatio":0.22,"maxRatio":1.32,"smoothing":0.58}];
+    const INKS = [{"id":"sumi","name":"Sumi Nero Carbone","traditionalName":"松煙墨 · Fuliggine di Pino","hex":"#181512","secondaryHex":"#2E2924"},{"id":"cinabro","name":"Cinabro Rosso Sigillo","traditionalName":"朱砂 · Cinabro Imperiale","hex":"#A32A18","secondaryHex":"#C23B26"},{"id":"indaco","name":"Indaco Notturno","traditionalName":"花青 · Indaco Minerale","hex":"#1D293D","secondaryHex":"#2E405E"},{"id":"oro","name":"Oro Imperiale","traditionalName":"泥金 · Oro Macinato","hex":"#9E7B2C","secondaryHex":"#B8923A"}];
+    const SHEETS = [{"id":"mizige","name":"Mi Zi Ge","chineseName":"米字格","paperHex":"#FAF7F2","borderHex":"#B53826","gridHex":"rgba(181, 56, 38, 0.42)","description":"Foglio tradizionale con croce centrale e diagonali a 8 raggi in rosso cinabro tenue."},{"id":"tianzige","name":"Tian Zi Ge","chineseName":"田字格","paperHex":"#F7F2E7","borderHex":"#9E3223","gridHex":"rgba(158, 50, 35, 0.42)","description":"Foglio classico a 4 quadranti ortogonali con croce centrale e segni di registro."},{"id":"jiugongge","name":"Jiu Gong Ge","chineseName":"九宫格","paperHex":"#F3EBD9","borderHex":"#7A5C38","gridHex":"rgba(122, 92, 56, 0.45)","description":"Foglio imperiale Tang dei «Nove Palazzi» (griglia 3×3) su carta Xuan dorata antica."},{"id":"libera","name":"Carta Libera","chineseName":"素宣紙","paperHex":"#FAF7F2","borderHex":"#C8B9A4","gridHex":"transparent","description":"Foglio di riso Xuan puro senza linee guida interne, per calligrafia libera."}];
+    const INITIAL_SELECTED_ID = "cn-yong";
+
+    let customStored = [];
+    try {
+      const raw = localStorage.getItem('studio_calligrafico_cinese_custom_v2');
+      if (raw) customStored = JSON.parse(raw);
+    } catch (e) {}
+
+    const mapById = new Map();
+    INITIAL_CHARACTERS.forEach(c => mapById.set(c.id, c));
+    customStored.forEach(c => mapById.set(c.id, c));
+    let characters = Array.from(mapById.values());
+
+    let studySheets = INITIAL_STUDY_SHEETS.slice();
+    try {
+      const savedSheets = localStorage.getItem('studio_calligrafico_cinese_sheets_v2');
+      if (savedSheets) {
+        const parsed = JSON.parse(savedSheets);
+        if (Array.isArray(parsed) && parsed.length > 0) studySheets = parsed;
+      }
+    } catch (e) {}
+
+    let activeSheetId = null;
+    let canvasMode = 'single'; // 'single' | 'multi'
+    let builderSelectedIds = ['cn-yong', 'cn-dao', 'cn-he', 'cn-xin'];
+    let builderMax = 6;
+
+    let selectedChar = characters.find(c => c.id === INITIAL_SELECTED_ID) || characters[0];
+    let currentBrush = BRUSHES[1];
+    let currentInk = INKS[0];
+    let currentSheet = SHEETS[0];
+    let strokeMm = 18;
+    let showWatermark = true;
+    let showSeal = true;
+    let sealText = '墨韻';
+    let strokesByChar = {};
+    let strokesBySheet = {};
+    let isDrawing = false;
+    let currentStroke = null;
+    let lastPt = null;
+    let libFilter = 'Tutti';
+    let flashIndex = 0;
+    let flashFlipped = false;
+    let audioEnabled = true;
+    let audioCtx = null;
+
+    function getActiveStudySheet() {
+      if (!activeSheetId) return null;
+      return studySheets.find(s => s.id === activeSheetId) || null;
+    }
+
+    function getActiveSheetCharacters() {
+      const sh = getActiveStudySheet();
+      if (sh) {
+        const list = sh.characterIds.map(id => characters.find(c => c.id === id)).filter(Boolean);
+        if (list.length > 0) return list;
+      }
+      return characters.slice(0, 4);
+    }
+
+    function getCurrentStrokes() {
+      if (canvasMode === 'multi') {
+        const key = activeSheetId || 'default-multi';
+        return strokesBySheet[key] || [];
+      }
+      return strokesByChar[selectedChar.id] || [];
+    }
+
+    function setCurrentStrokes(list) {
+      if (canvasMode === 'multi') {
+        const key = activeSheetId || 'default-multi';
+        strokesBySheet[key] = list;
+      } else {
+        strokesByChar[selectedChar.id] = list;
+      }
+    }
+
+    function getAudio() {
+      if (!audioEnabled) return null;
+      if (!audioCtx) {
+        const Ctx = window.AudioContext || window.webkitAudioContext;
+        if (Ctx) audioCtx = new Ctx();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
+      return audioCtx;
+    }
+
+    function playTone(freq, dur) {
+      const ctx = getAudio();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0008, ctx.currentTime + dur);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + dur);
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      document.getElementById('audio-toggle-btn').textContent = audioEnabled ? 'Audio: Attivo' : 'Audio: Muto';
+      if (audioEnabled) playTone(528, 0.2);
+    }
+
+    function switchTab(tab) {
+      document.getElementById('view-studio').classList.toggle('hidden', tab !== 'studio');
+      document.getElementById('view-sheets').classList.toggle('hidden', tab !== 'sheets');
+      document.getElementById('view-library').classList.toggle('hidden', tab !== 'library');
+      document.getElementById('view-flashcards').classList.toggle('hidden', tab !== 'flashcards');
+      document.getElementById('nav-studio').classList.toggle('active', tab === 'studio');
+      document.getElementById('nav-sheets').classList.toggle('active', tab === 'sheets');
+      document.getElementById('nav-library').classList.toggle('active', tab === 'library');
+      document.getElementById('nav-flashcards').classList.toggle('active', tab === 'flashcards');
+      if (tab === 'sheets') renderSheetsManager();
+      if (tab === 'library') renderLibrary();
+      if (tab === 'flashcards') renderFlashcard();
+      if (tab === 'studio') {
+        renderActiveSheetBar();
+        renderFullSheet();
+        renderCarousel();
+      }
+      playTone(640, 0.08);
+    }
+
+    function renderActiveSheetBar() {
+      const container = document.getElementById('active-sheet-pills');
+      let html = '<button type="button" class="btn ' + (!activeSheetId ? 'btn-primary' : '') + '" onclick="activateStudySheet(null)">Tutti (' + characters.length + ')</button>';
+      studySheets.forEach(s => {
+        const active = activeSheetId === s.id;
+        html += '<button type="button" class="btn ' + (active ? 'btn-cinnabar' : '') + '" onclick="activateStudySheet(\'' + s.id + '\')">' + s.title + ' (' + s.characterIds.length + ')</button>';
+      });
+      container.innerHTML = html;
+
+      document.getElementById('mode-single-btn').classList.toggle('active', canvasMode === 'single');
+      document.getElementById('mode-multi-btn').classList.toggle('active', canvasMode === 'multi');
+    }
+
+    function activateStudySheet(id) {
+      activeSheetId = id;
+      const sh = getActiveStudySheet();
+      if (sh) {
+        currentSheet = SHEETS.find(s => s.id === sh.preferredGrid) || SHEETS[0];
+        const first = characters.find(c => c.id === sh.characterIds[0]);
+        if (first) selectedChar = first;
+      } else {
+        canvasMode = 'single';
+      }
+      renderToolbar();
+      renderActiveSheetBar();
+      renderFullSheet();
+      renderInspector();
+      renderCarousel();
+      playTone(520, 0.09);
+    }
+
+    function setCanvasMode(m) {
+      canvasMode = m;
+      if (m === 'multi' && !activeSheetId && studySheets.length > 0) {
+        activeSheetId = studySheets[0].id;
+      }
+      renderActiveSheetBar();
+      renderFullSheet();
+      renderCarousel();
+      playTone(580, 0.09);
+    }
+
+    function renderToolbar() {
+      document.getElementById('brush-buttons').innerHTML = BRUSHES.map(b =>
+        '<button type="button" class="seg-btn ' + (b.id === currentBrush.id ? 'active' : '') + '" onclick="selectBrush(\'' + b.id + '\')">' + b.name + '</button>'
+      ).join('');
+
+      document.getElementById('ink-buttons').innerHTML = INKS.map(i =>
+        '<button type="button" class="btn ' + (i.id === currentInk.id ? 'btn-primary' : '') + '" onclick="selectInk(\'' + i.id + '\')">' +
+        '<span class="ink-dot" style="background:' + i.hex + '"></span>' + i.name.split(' ')[0] + '</button>'
+      ).join('');
+
+      document.getElementById('sheet-buttons').innerHTML = SHEETS.map(s =>
+        '<button type="button" class="seg-btn ' + (s.id === currentSheet.id ? 'active' : '') + '" onclick="selectSheet(\'' + s.id + '\')">' + s.name + ' (' + s.chineseName + ')</button>'
+      ).join('');
+    }
+
+    function selectBrush(id) {
+      currentBrush = BRUSHES.find(b => b.id === id) || BRUSHES[0];
+      renderToolbar();
+      playTone(580, 0.09);
+    }
+
+    function selectInk(id) {
+      currentInk = INKS.find(i => i.id === id) || INKS[0];
+      renderToolbar();
+      playTone(720, 0.09);
+    }
+
+    function selectSheet(id) {
+      currentSheet = SHEETS.find(s => s.id === id) || SHEETS[0];
+      renderToolbar();
+      renderFullSheet();
+      playTone(480, 0.1);
+    }
+
+    function updateMm(val) {
+      strokeMm = Number(val);
+      document.getElementById('mm-label').textContent = strokeMm + ' mm';
+    }
+
+    function toggleWatermark() {
+      showWatermark = !showWatermark;
+      document.getElementById('watermark-btn').textContent = 'Traccia Ricalco: ' + (showWatermark ? 'ON' : 'OFF');
+      renderFullSheet();
+    }
+
+    function toggleSeal() {
+      showSeal = !showSeal;
+      document.getElementById('seal-btn').textContent = 'Sigillo (印): ' + (showSeal ? 'ON' : 'OFF');
+      playTone(140, 0.14);
+      renderFullSheet();
+    }
+
+    function updateSealText(val) {
+      sealText = val || '墨韻';
+      renderFullSheet();
+    }
+
+    function drawSingleBox(ctx, x, y, size, compact) {
+      ctx.save();
+      const gap = compact ? 4 : 8;
+      if (currentSheet.id === 'libera') {
+        ctx.strokeStyle = '#C8B9A4';
+        ctx.lineWidth = 1.4;
+        ctx.strokeRect(x, y, size, size);
+      } else if (currentSheet.id === 'mizige') {
+        ctx.strokeStyle = currentSheet.borderHex;
+        ctx.lineWidth = compact ? 2.2 : 3.5;
+        ctx.strokeRect(x - gap, y - gap, size + gap*2, size + gap*2);
+        ctx.lineWidth = 1.3;
+        ctx.strokeRect(x, y, size, size);
+        ctx.strokeStyle = currentSheet.gridHex;
+        ctx.setLineDash([10, 7]);
+        ctx.beginPath();
+        ctx.moveTo(x + size/2, y); ctx.lineTo(x + size/2, y + size);
+        ctx.moveTo(x, y + size/2); ctx.lineTo(x + size, y + size/2);
+        ctx.moveTo(x, y); ctx.lineTo(x + size, y + size);
+        ctx.moveTo(x + size, y); ctx.lineTo(x, y + size);
+        ctx.stroke();
+      } else if (currentSheet.id === 'tianzige') {
+        ctx.strokeStyle = currentSheet.borderHex;
+        ctx.lineWidth = compact ? 2.2 : 3.5;
+        ctx.strokeRect(x - gap, y - gap, size + gap*2, size + gap*2);
+        ctx.lineWidth = 1.3;
+        ctx.strokeRect(x, y, size, size);
+        ctx.strokeStyle = currentSheet.gridHex;
+        ctx.setLineDash([12, 8]);
+        ctx.beginPath();
+        ctx.moveTo(x + size/2, y); ctx.lineTo(x + size/2, y + size);
+        ctx.moveTo(x, y + size/2); ctx.lineTo(x + size, y + size/2);
+        ctx.stroke();
+      } else if (currentSheet.id === 'jiugongge') {
+        ctx.strokeStyle = currentSheet.borderHex;
+        ctx.lineWidth = compact ? 2.2 : 3.5;
+        ctx.strokeRect(x - gap, y - gap, size + gap*2, size + gap*2);
+        ctx.lineWidth = 1.3;
+        ctx.strokeRect(x, y, size, size);
+        const third = size / 3;
+        ctx.strokeStyle = currentSheet.gridHex;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.moveTo(x + third, y); ctx.lineTo(x + third, y + size);
+        ctx.moveTo(x + third*2, y); ctx.lineTo(x + third*2, y + size);
+        ctx.moveTo(x, y + third); ctx.lineTo(x + size, y + third);
+        ctx.moveTo(x, y + third*2); ctx.lineTo(x + size, y + third*2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    function drawPaperAndGridOnCtx(ctx, isExport) {
+      const w = 1000, h = 1000;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = currentSheet.paperHex;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.save();
+      ctx.strokeStyle = 'rgba(175, 160, 138, 0.18)';
+      ctx.lineWidth = 1.1;
+      for (let i = 0; i < 120; i++) {
+        const seed = (i * 9301 + 49297) % 233280;
+        const rx = (seed / 233280) * w;
+        const ry = (((seed * 7) % 233280) / 233280) * h;
+        const len = 14 + (i % 20);
+        const ang = ((i * 37) % 360) * (Math.PI / 180);
+        ctx.beginPath();
+        ctx.moveTo(rx, ry);
+        ctx.lineTo(rx + Math.cos(ang) * len, ry + Math.sin(ang) * len * 0.6);
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      if (canvasMode === 'single') {
+        const pad = 76;
+        const inner = w - pad * 2;
+        drawSingleBox(ctx, pad, pad, inner, false);
+
+        ctx.save();
+        ctx.fillStyle = currentSheet.borderHex;
+        ctx.font = '600 16px "Noto Serif SC", Georgia, serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(currentSheet.chineseName + ' · ' + currentSheet.name.toUpperCase(), w / 2, 44);
+        ctx.restore();
+
+        if (!isExport && showWatermark && selectedChar) {
+          ctx.save();
+          ctx.fillStyle = 'rgba(24, 21, 18, 0.20)';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const len = Array.from(selectedChar.char).length;
+          const fs = len === 1 ? 640 : len === 2 ? 380 : 230;
+          ctx.font = '600 ' + fs + 'px "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif';
+          ctx.fillText(selectedChar.char, w/2, h/2 + 16);
+          ctx.restore();
+        }
+      } else {
+        const list = getActiveSheetCharacters();
+        const count = Math.max(1, list.length);
+        const cols = count <= 4 ? 2 : count <= 9 ? 3 : 4;
+        const rows = Math.ceil(count / cols);
+        const availW = 872, availH = 820, gapX = 26, gapY = 38;
+        const cellSize = Math.floor(Math.min((availW - gapX*(cols-1))/cols, (availH - gapY*(rows-1))/rows));
+        const totalW = cols*cellSize + (cols-1)*gapX;
+        const totalH = rows*cellSize + (rows-1)*gapY;
+        const startX = Math.floor((1000 - totalW)/2);
+        const startY = Math.floor(100 + (availH - totalH)/2);
+
+        const sh = getActiveStudySheet();
+        ctx.save();
+        ctx.fillStyle = currentSheet.borderHex;
+        ctx.font = '600 18px "Noto Serif SC", Georgia, serif';
+        ctx.textAlign = 'center';
+        ctx.fillText((sh ? sh.title : 'Foglio di Studio') + ' · ' + currentSheet.chineseName, 500, 46);
+        ctx.restore();
+
+        list.forEach((ch, idx) => {
+          const r = Math.floor(idx / cols);
+          const c = idx % cols;
+          const bx = startX + c*(cellSize + gapX);
+          const by = startY + r*(cellSize + gapY);
+          drawSingleBox(ctx, bx, by, cellSize, true);
+
+          ctx.save();
+          ctx.fillStyle = '#5C554E';
+          ctx.font = '600 13px sans-serif';
+          ctx.fillText((idx+1) + '. ' + ch.char + ' (' + ch.pinyin + ')', bx, by - 10);
+          ctx.restore();
+
+          if (showWatermark) {
+            ctx.save();
+            ctx.fillStyle = isExport ? 'rgba(24, 21, 18, 0.12)' : 'rgba(24, 21, 18, 0.20)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '600 ' + Math.floor(cellSize * 0.74) + 'px "Noto Serif SC", "Songti SC", "SimSun", Georgia, serif';
+            ctx.fillText(ch.char, bx + cellSize/2, by + cellSize/2 + 6);
+            ctx.restore();
+          }
+        });
+      }
+    }
+
+    function drawSegment(ctx, p1, p2, st) {
+      const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+      const steps = Math.max(1, Math.ceil(dist / 1.5));
+      ctx.save();
+      ctx.fillStyle = st.inkHex;
+      if (st.brush === 'capra') {
+        ctx.shadowColor = st.inkHex;
+        ctx.shadowBlur = 4;
+      }
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const x = p1.x + (p2.x - p1.x) * t;
+        const y = p1.y + (p2.y - p1.y) * t;
+        const w = p1.w + (p2.w - p1.w) * t;
+        ctx.beginPath();
+        ctx.arc(x, y, Math.max(1, w / 2), 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawSealOnCtx(ctx) {
+      if (!showSeal) return;
+      const x = canvasMode === 'multi' ? 42 : 102;
+      const s = canvasMode === 'multi' ? 72 : 94;
+      const y = 1000 - x - s;
+      ctx.save();
+      ctx.fillStyle = '#A32A18';
+      ctx.fillRect(x, y, s, s);
+      ctx.strokeStyle = '#FAF7F2';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x + 5, y + 5, s - 10, s - 10);
+      ctx.fillStyle = '#FAF7F2';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = '700 ' + Math.floor(s*0.35) + 'px "Noto Serif SC", Georgia, serif';
+      const chars = Array.from((sealText || '墨韻').slice(0, 4));
+      if (chars.length === 1) {
+        ctx.fillText(chars[0], x + s/2, y + s/2);
+      } else {
+        ctx.fillText(chars[0] || '', x + s/2, y + s*0.33);
+        ctx.fillText(chars[1] || '', x + s/2, y + s*0.70);
+      }
+      ctx.restore();
+    }
+
+    function renderFullSheet() {
+      const canvas = document.getElementById('xuan-canvas');
+      const ctx = canvas.getContext('2d');
+      drawPaperAndGridOnCtx(ctx, false);
+      const list = getCurrentStrokes();
+      list.forEach(st => {
+        if (st.points.length === 1) drawSegment(ctx, st.points[0], st.points[0], st);
+        else {
+          for (let i = 1; i < st.points.length; i++) {
+            drawSegment(ctx, st.points[i-1], st.points[i], st);
+          }
+        }
+      });
+      if (currentStroke && currentStroke.points.length > 0) {
+        if (currentStroke.points.length === 1) drawSegment(ctx, currentStroke.points[0], currentStroke.points[0], currentStroke);
+        else {
+          for (let i = 1; i < currentStroke.points.length; i++) {
+            drawSegment(ctx, currentStroke.points[i-1], currentStroke.points[i], currentStroke);
+          }
+        }
+      }
+      drawSealOnCtx(ctx);
+    }
+
+    function undoStroke() {
+      const list = getCurrentStrokes();
+      list.pop();
+      setCurrentStrokes(list);
+      renderFullSheet();
+      playTone(420, 0.08);
+    }
+
+    function clearCanvas() {
+      setCurrentStrokes([]);
+      renderFullSheet();
+      playTone(360, 0.12);
+    }
+
+    function downloadPNG() {
+      const exp = document.createElement('canvas');
+      exp.width = 1000; exp.height = 1000;
+      const ctx = exp.getContext('2d');
+      drawPaperAndGridOnCtx(ctx, true);
+      const list = getCurrentStrokes();
+      list.forEach(st => {
+        if (st.points.length === 1) drawSegment(ctx, st.points[0], st.points[0], st);
+        else {
+          for (let i = 1; i < st.points.length; i++) {
+            drawSegment(ctx, st.points[i-1], st.points[i], st);
+          }
+        }
+      });
+      drawSealOnCtx(ctx);
+      const a = document.createElement('a');
+      a.download = 'calligrafia_cinese_' + (selectedChar.pinyin || 'xuan') + '.png';
+      a.href = exp.toDataURL('image/png');
+      a.click();
+      playTone(528, 0.35);
+    }
+
+    function renderInspector() {
+      const el = document.getElementById('inspector-panel');
+      const anatomyHtml = (selectedChar.strokeAnatomy || []).map(st =>
+        '<div class="anatomy-item">' +
+          '<div style="display:flex; justify-content:space-between; font-weight:600;">' +
+            '<span>' + String(st.step).padStart(2, '0') + '. ' + st.name + '</span>' +
+            '<span style="color:var(--ink-faint); font-weight:400;">' + st.direction + '</span>' +
+          '</div>' +
+          '<div style="color:var(--ink-muted); margin-top:3px;">' + st.technique + '</div>' +
+        '</div>'
+      ).join('');
+
+      el.innerHTML =
+        '<div style="display:flex; justify-content:space-between; gap:14px; padding-bottom:14px; border-bottom:1px solid var(--border-delicate);">' +
+          '<div>' +
+            '<div class="meta-line"><strong style="color:var(--seal-cinnabar);">' + selectedChar.category + '</strong> · <span>' + selectedChar.styleLabel + '</span> · <span>' + selectedChar.strokeCount + ' tratti</span></div>' +
+            '<div class="serif-title">' + selectedChar.pinyin + ' — ' + selectedChar.literalMeaning.split(',')[0] + '</div>' +
+            '<div class="poetic-quote">«' + selectedChar.poeticMeaning + '»</div>' +
+          '</div>' +
+          '<div class="specimen-mini">' + selectedChar.char + '</div>' +
+        '</div>' +
+        '<div style="padding:14px 0; border-bottom:1px solid var(--border-delicate); font-size:13px;">' +
+          '<div><strong>Radicale Cinese:</strong> ' + selectedChar.radical + '</div>' +
+          '<div style="margin-top:4px;"><strong>Significato letterale:</strong> ' + selectedChar.literalMeaning + '</div>' +
+        '</div>' +
+        '<div style="padding:14px 0; border-bottom:1px solid var(--border-delicate);">' +
+          '<div style="font-family:var(--font-serif); font-weight:600; font-size:17px; margin-bottom:4px;">Saggio Filosofico ed Etimologico</div>' +
+          '<p style="font-family:var(--font-serif); font-size:16px; color:#2E2924;">' + selectedChar.philosophicalEssay + '</p>' +
+        '</div>' +
+        '<div style="padding-top:14px;">' +
+          '<div style="font-family:var(--font-serif); font-weight:600; font-size:17px;">Anatomia Sequenziale dei Tratti Kaishu</div>' +
+          '<div class="anatomy-list">' + anatomyHtml + '</div>' +
+        '</div>';
+    }
+
+    function renderCarousel() {
+      const sh = getActiveStudySheet();
+      const list = sh ? getActiveSheetCharacters() : characters;
+      document.getElementById('carousel-title').textContent = sh
+        ? ('Caratteri del ' + sh.title + ' (' + list.length + ')')
+        : 'Selezione Rapida del Carattere Cinese (汉字)';
+
+      const c = document.getElementById('quick-carousel');
+      c.innerHTML = list.map(ch =>
+        '<button type="button" class="carousel-card ' + (ch.id === selectedChar.id ? 'active' : '') + '" onclick="selectCharacterById(\'' + ch.id + '\')">' +
+          '<div style="display:flex; justify-content:space-between; font-size:10px; color:var(--ink-faint);"><span>' + ch.category.split(' ')[0] + '</span><span>' + ch.strokeCount + 't</span></div>' +
+          '<div style="font-family:var(--font-calligraphy); font-size:30px; font-weight:600; text-align:center; margin:6px 0;">' + ch.char + '</div>' +
+          '<div style="font-size:12px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + ch.pinyin + '</div>' +
+          '<div style="font-size:11px; color:var(--ink-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + ch.literalMeaning.split(',')[0] + '</div>' +
+        '</button>'
+      ).join('');
+    }
+
+    function selectCharacterById(id) {
+      const found = characters.find(c => c.id === id);
+      if (!found) return;
+      selectedChar = found;
+      renderFullSheet();
+      renderInspector();
+      renderCarousel();
+      switchTab('studio');
+    }
+
+    // FOGLI DI STUDIO MANAGER IN OFFLINE MODE
+    function updateBuilderMax(val) {
+      builderMax = Number(val) || 6;
+      if (builderSelectedIds.length > builderMax) {
+        builderSelectedIds = builderSelectedIds.slice(0, builderMax);
+      }
+      renderSheetsManager();
+    }
+
+    function toggleBuilderChar(id) {
+      const idx = builderSelectedIds.indexOf(id);
+      if (idx !== -1) {
+        builderSelectedIds.splice(idx, 1);
+      } else {
+        if (builderSelectedIds.length >= builderMax) {
+          alert('Hai raggiunto il limite di ' + builderMax + ' caratteri per questo foglio.');
+          return;
+        }
+        builderSelectedIds.push(id);
+      }
+      renderSheetsManager();
+    }
+
+    function quickAddCharsToBuilder() {
+      const raw = (document.getElementById('sheet-quick-chars').value || '').trim().replace(/\s+/g, '');
+      if (!raw) return;
+      const glyphs = Array.from(raw);
+      glyphs.forEach((g, idx) => {
+        if (builderSelectedIds.length >= builderMax) return;
+        let existing = characters.find(c => c.char === g);
+        if (!existing) {
+          existing = {
+            id: 'custom-off-' + Date.now() + '-' + idx,
+            char: g,
+            category: 'Simboli & Cultura',
+            styleLabel: '楷書 · Foglio Personale',
+            pinyin: 'Carattere «' + g + '»',
+            radical: 'Tracciato Kaishu (' + g + ')',
+            strokeCount: 8,
+            literalMeaning: 'Studio calligrafico di ' + g,
+            poeticMeaning: 'Armonia del tratto in «' + g + '»',
+            philosophicalEssay: 'Ideogramma inserito per lo studio su foglio calligrafico.',
+            strokeAnatomy: [{ step: 1, name: 'Tratto Kaishu', direction: 'Centro', technique: 'Esegui con punta centrata.' }],
+            isCustom: true
+          };
+          characters.unshift(existing);
+        }
+        if (!builderSelectedIds.includes(existing.id)) {
+          builderSelectedIds.push(existing.id);
+        }
+      });
+      document.getElementById('sheet-quick-chars').value = '';
+      try {
+        localStorage.setItem('studio_calligrafico_cinese_custom_v2', JSON.stringify(characters.filter(c => c.isCustom)));
+      } catch(e){}
+      renderSheetsManager();
+    }
+
+    function saveNewStudySheet() {
+      const titleVal = (document.getElementById('sheet-new-title').value || '').trim() || ('Foglio Personale ' + (studySheets.length + 1));
+      const subVal = (document.getElementById('sheet-new-sub').value || '').trim() || 'Selezione mirata di caratteri';
+      const gridVal = document.getElementById('sheet-new-grid').value || 'mizige';
+      if (builderSelectedIds.length === 0) {
+        alert('Seleziona almeno un carattere per il foglio.');
+        return;
+      }
+      const newSheet = {
+        id: 'sheet-off-' + Date.now(),
+        title: titleVal,
+        subtitle: subVal,
+        maxCharacters: builderMax,
+        preferredGrid: gridVal,
+        characterIds: builderSelectedIds.slice(0, builderMax),
+        createdAt: 'Foglio Personale',
+        isCustom: true
+      };
+      studySheets.unshift(newSheet);
+      try {
+        localStorage.setItem('studio_calligrafico_cinese_sheets_v2', JSON.stringify(studySheets));
+      } catch(e){}
+      activeSheetId = newSheet.id;
+      canvasMode = 'multi';
+      switchTab('studio');
+    }
+
+    function openSheetMode(sheetId, mode) {
+      activeSheetId = sheetId;
+      canvasMode = mode;
+      const sh = getActiveStudySheet();
+      if (sh) {
+        currentSheet = SHEETS.find(s => s.id === sh.preferredGrid) || SHEETS[0];
+        const first = characters.find(c => c.id === sh.characterIds[0]);
+        if (first) selectedChar = first;
+      }
+      switchTab('studio');
+    }
+
+    function renderSheetsManager() {
+      document.getElementById('sheet-builder-counter').textContent = builderSelectedIds.length + ' / ' + builderMax + ' caratteri selezionati';
+      document.getElementById('sheet-picker-grid').innerHTML = characters.map(c => {
+        const sel = builderSelectedIds.includes(c.id);
+        return '<button type="button" class="picker-chip ' + (sel ? 'selected' : '') + '" onclick="toggleBuilderChar(\'' + c.id + '\')">' +
+          '<div style="font-family:var(--font-calligraphy); font-size:22px; font-weight:600;">' + c.char + '</div>' +
+          '<div style="font-size:10px;">' + c.pinyin + '</div>' +
+        '</button>';
+      }).join('');
+
+      document.getElementById('sheets-list-grid').innerHTML = studySheets.map(sh => {
+        const list = sh.characterIds.map(id => characters.find(c => c.id === id)).filter(Boolean);
+        const charsPreview = list.map(c => '<span style="font-family:var(--font-calligraphy); font-size:24px; padding:4px 8px; background:var(--bg-xuan); border:1px solid var(--border-strong); border-radius:4px;">' + c.char + '</span>').join(' ');
+        return '<div class="lib-card">' +
+          '<div>' +
+            '<div class="meta-line"><strong style="color:var(--seal-cinnabar);">' + list.length + ' / ' + sh.maxCharacters + ' caratteri</strong> · <span>Griglia ' + sh.preferredGrid + '</span></div>' +
+            '<h3 style="font-family:var(--font-serif); font-size:22px; margin-top:4px;">' + sh.title + '</h3>' +
+            '<p style="font-size:12px; color:var(--ink-muted); margin-top:4px;">' + sh.subtitle + '</p>' +
+            '<div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">' + charsPreview + '</div>' +
+          '</div>' +
+          '<div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--border-delicate); display:flex; gap:8px; flex-wrap:wrap;">' +
+            '<button type="button" class="btn btn-primary" onclick="openSheetMode(\'' + sh.id + '\', \'single\')">Esercita (1 a 1)</button>' +
+            '<button type="button" class="btn btn-cinnabar" onclick="openSheetMode(\'' + sh.id + '\', \'multi\')">Foglio Multi-Casella</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function renderLibrary() {
+      document.getElementById('lib-count-label').textContent = 'Archivio Calligrafico Cinese · ' + characters.length + ' Ideogrammi Disponibili Offline';
+      const tabs = ['Tutti', 'Fondamenti & Tao', 'Natura & Paesaggio', 'Virtù Classiche', 'Simboli & Cultura'];
+      document.getElementById('lib-filter-tabs').innerHTML = tabs.map(t =>
+        '<button type="button" class="seg-btn ' + (libFilter === t ? 'active' : '') + '" onclick="setLibFilter(\'' + t + '\')">' + t + '</button>'
+      ).join('');
+
+      const list = libFilter === 'Tutti' ? characters : characters.filter(c => c.category === libFilter);
+      document.getElementById('library-cards').innerHTML = list.map(ch =>
+        '<div class="lib-card">' +
+          '<div>' +
+            '<div class="meta-line"><strong style="color:var(--seal-cinnabar);">' + ch.category + '</strong> · <span>' + ch.strokeCount + ' tratti</span></div>' +
+            '<div class="lib-specimen">' + ch.char + '</div>' +
+            '<h3 style="font-family:var(--font-serif); font-size:21px;">' + ch.pinyin + ' — ' + ch.literalMeaning.split(',')[0] + '</h3>' +
+            '<p class="poetic-quote" style="font-size:13px;">«' + ch.poeticMeaning + '»</p>' +
+            '<p style="font-size:12px; color:var(--ink-muted); margin-top:8px;">' + ch.philosophicalEssay + '</p>' +
+          '</div>' +
+          '<div style="margin-top:14px; padding-top:10px; border-top:1px solid var(--border-delicate); display:flex; justify-content:flex-end;">' +
+            '<button type="button" class="btn btn-primary" onclick="selectCharacterById(\'' + ch.id + '\')">Esercita sul Foglio</button>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function setLibFilter(f) {
+      libFilter = f;
+      renderLibrary();
+    }
+
+    function createNewCharacter() {
+      const charVal = document.getElementById('new-char').value.trim();
+      const catVal = document.getElementById('new-cat').value;
+      const pinyinVal = document.getElementById('new-pinyin').value.trim();
+      const strokesVal = Number(document.getElementById('new-strokes').value) || 8;
+      const literalVal = document.getElementById('new-literal').value.trim();
+      const poeticVal = document.getElementById('new-poetic').value.trim();
+      const essayVal = document.getElementById('new-essay').value.trim();
+
+      if (!charVal || !pinyinVal || !literalVal) {
+        alert('Compila Carattere Cinese, Pinyin e Significato Letterale.');
+        return;
+      }
+
+      const steps = [];
+      for (let i = 1; i <= Math.min(10, strokesVal); i++) {
+        steps.push({
+          step: i,
+          name: 'Tratto ' + i,
+          direction: i % 2 === 0 ? 'Sinistra → Destra' : 'Alto → Basso',
+          technique: 'Mantieni il centro del pennello (Zhongfeng) con respiro regolare.'
+        });
+      }
+
+      const newObj = {
+        id: 'custom-offline-' + Date.now(),
+        char: charVal,
+        category: catVal,
+        styleLabel: '楷書 · Collezione Personale',
+        pinyin: pinyinVal,
+        radical: 'Radicale di ' + charVal,
+        strokeCount: strokesVal,
+        literalMeaning: literalVal,
+        poeticMeaning: poeticVal || ('La presenza silenziosa di ' + charVal + ' su carta di riso'),
+        philosophicalEssay: essayVal || ('Ideogramma cinese personalizzato aggiunto allo Studio Calligrafico.'),
+        strokeAnatomy: steps,
+        isCustom: true
+      };
+
+      characters.unshift(newObj);
+      try {
+        const customs = characters.filter(c => c.isCustom);
+        localStorage.setItem('studio_calligrafico_cinese_custom_v2', JSON.stringify(customs));
+      } catch (e) {}
+
+      selectCharacterById(newObj.id);
+    }
+
+    function renderFlashcard() {
+      const sh = getActiveStudySheet();
+      const deck = sh ? getActiveSheetCharacters() : characters;
+      const card = deck[flashIndex % deck.length] || characters[0];
+      const stage = document.getElementById('flashcard-stage');
+      if (!flashFlipped) {
+        stage.innerHTML =
+          '<div class="meta-line"><span>Scheda ' + ((flashIndex % deck.length) + 1) + ' di ' + deck.length + '</span> · <strong>' + (sh ? sh.title : card.category) + '</strong> · <span>Clicca per voltare</span></div>' +
+          '<div style="text-align:center; padding:40px 0;">' +
+            '<div style="font-family:var(--font-calligraphy); font-size:92px; font-weight:600;">' + card.char + '</div>' +
+            '<p style="color:var(--ink-muted); font-size:14px; margin-top:12px;">Qual è il Pinyin, il significato e l’ordine dei ' + card.strokeCount + ' tratti?</p>' +
+          '</div>' +
+          '<div style="font-size:12px; color:var(--ink-faint); text-align:right;">印 書法 Studio Calligrafico Cinese</div>';
+      } else {
+        stage.innerHTML =
+          '<div class="meta-line"><span>Soluzione Scheda</span> · <strong>' + card.category + '</strong> · <span>' + card.strokeCount + ' tratti</span></div>' +
+          '<div style="padding:24px 0;">' +
+            '<div style="font-family:var(--font-calligraphy); font-size:48px; color:var(--seal-cinnabar); font-weight:600;">' + card.char + ' (' + card.pinyin + ')</div>' +
+            '<h2 class="serif-title">' + card.literalMeaning + '</h2>' +
+            '<p class="poetic-quote">«' + card.poeticMeaning + '»</p>' +
+            '<p style="font-family:var(--font-serif); font-size:17px; margin-top:14px;">' + card.philosophicalEssay + '</p>' +
+          '</div>' +
+          '<div style="display:flex; justify-content:space-between; align-items:center;">' +
+            '<span style="font-size:12px; color:var(--ink-muted);">Radicale: ' + card.radical + '</span>' +
+            '<button type="button" class="btn btn-cinnabar" onclick="event.stopPropagation(); selectCharacterById(\'' + card.id + '\')">Ricalca sulla Tavola</button>' +
+          '</div>';
+      }
+    }
+
+    function flipFlashcard() {
+      flashFlipped = !flashFlipped;
+      renderFlashcard();
+      playTone(600, 0.07);
+    }
+    function nextFlashcard() {
+      flashIndex = flashIndex + 1;
+      flashFlipped = false;
+      renderFlashcard();
+    }
+    function prevFlashcard() {
+      flashIndex = Math.max(0, flashIndex - 1);
+      flashFlipped = false;
+      renderFlashcard();
+    }
+
+    const xuanCanvas = document.getElementById('xuan-canvas');
+    function getPt(e) {
+      const r = xuanCanvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - r.left) * (1000 / r.width),
+        y: (e.clientY - r.top) * (1000 / r.height)
+      };
+    }
+
+    xuanCanvas.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      xuanCanvas.setPointerCapture(e.pointerId);
+      const pt = getPt(e);
+      const now = performance.now();
+      const scale = canvasMode === 'multi' ? 0.58 : 1.0;
+      const baseW = strokeMm * 2.15 * scale;
+      const p0 = { x: pt.x, y: pt.y, t: now, w: baseW * 0.8 };
+      isDrawing = true;
+      currentStroke = { brush: currentBrush.id, inkHex: currentInk.hex, baseScale: scale, points: [p0] };
+      lastPt = p0;
+      drawSegment(xuanCanvas.getContext('2d'), p0, p0, currentStroke);
+      drawSealOnCtx(xuanCanvas.getContext('2d'));
+    });
+
+    xuanCanvas.addEventListener('pointermove', (e) => {
+      if (!isDrawing || !currentStroke || !lastPt) return;
+      const pt = getPt(e);
+      const now = performance.now();
+      const dist = Math.hypot(pt.x - lastPt.x, pt.y - lastPt.y);
+      if (dist < 1.2) return;
+      const dt = Math.max(4, now - lastPt.t);
+      const vel = dist / dt;
+      const speedNorm = Math.min(1, vel / 3.2);
+      const baseW = strokeMm * 2.15 * (currentStroke.baseScale || 1);
+      const targetRatio = currentBrush.maxRatio - speedNorm * (currentBrush.maxRatio - currentBrush.minRatio);
+      const newW = lastPt.w * currentBrush.smoothing + (baseW * targetRatio) * (1 - currentBrush.smoothing);
+      const nextP = { x: pt.x, y: pt.y, t: now, w: newW };
+      currentStroke.points.push(nextP);
+      drawSegment(xuanCanvas.getContext('2d'), lastPt, nextP, currentStroke);
+      lastPt = nextP;
+    });
+
+    function endStroke() {
+      if (!isDrawing) return;
+      isDrawing = false;
+      if (currentStroke && currentStroke.points.length > 0) {
+        const list = getCurrentStrokes();
+        list.push(currentStroke);
+        setCurrentStrokes(list);
+      }
+      currentStroke = null;
+      lastPt = null;
+      renderFullSheet();
+    }
+    xuanCanvas.addEventListener('pointerup', endStroke);
+    xuanCanvas.addEventListener('pointercancel', endStroke);
+    xuanCanvas.addEventListener('pointerleave', endStroke);
+
+    renderToolbar();
+    renderActiveSheetBar();
+    renderFullSheet();
+    renderInspector();
+    renderCarousel();
+  </script>
+</body>
+</html>

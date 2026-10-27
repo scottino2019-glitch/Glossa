@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #047857;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Livelli di Formalità e Coniugazione Cortese Coreana</title>
+
+</head>
+<body>
+
+  <div class="badge">COREANO (GRAMMATICA) • FOGLIO DI STUDIO</div>
+  <h1>Livelli di Formalità e Coniugazione Cortese</h1>
+
+  <p>In coreano la relazione sociale tra chi parla e chi ascolta determina la desinenza del verbo. Non si coniuga per persona (io/tu/noi), ma per grado di rispetto.</p>
+
+  <h2>1. I Due Livelli Primari</h2>
+  <div class="rule-card">
+    <p><strong>1. Hasipsio-che (하십시오체) • Formale Alto:</strong> Usato nei contesti istituzionali, presentazioni, notiziari e con superiori gerarchici assoluti. Termina in <em>-ㅂ니다 / -습니다</em>.</p>
+    <p><strong>2. Haeyo-che (해요체) • Informale Cortese:</strong> Lo standard della conversazione quotidiana rispettosa tra adulti, colleghi, sconosciuti ed estranei. Termina in <em>-아요 / -어요</em>.</p>
+  </div>
+
+  <h2>2. Come Formare l'Informale Cortese (-아요 / -어요)</h2>
+  <p>Si prende il verbo all'infinito e si toglie la desinenza <strong>다 (da)</strong> per ottenere la radice. Poi si guarda l'ultima vocale della radice:</p>
+
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Condizione Vocalica</th>
+        <th>Desinenza</th>
+        <th>Esempio Infinito</th>
+        <th>Radice</th>
+        <th>Forma Cortese Coniugata</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Se l'ultima vocale è <strong>ㅏ (a)</strong> oppure <strong>ㅗ (o)</strong></td>
+        <td><strong>-아요</strong></td>
+        <td><span class="hangul-char">가다</span> (andare)<br><span class="hangul-char">보다</span> (vedere)</td>
+        <td>가 (ga)<br>보 (bo)</td>
+        <td><strong>가요</strong> (gayo = vado/va)<br><strong>봐요</strong> (bwayo = vedo/vede)</td>
+      </tr>
+      <tr>
+        <td>Tutte le altre vocali (<strong>ㅓ, ㅜ, ㅡ, ㅣ</strong>)</td>
+        <td><strong>-어요</strong></td>
+        <td><span class="hangul-char">먹다</span> (mangiare)<br><span class="hangul-char">마시다</span> (bere)</td>
+        <td>먹 (meok)<br>마시 (mashi)</td>
+        <td><strong>먹어요</strong> (meogeoyo)<br><strong>마셔요</strong> (masheoyo)</td>
+      </tr>
+      <tr>
+        <td>Verbi che terminano in <strong>하다 (hada - fare)</strong></td>
+        <td><strong>해요</strong> (irregolare)</td>
+        <td><span class="hangul-char">공부하다</span> (studiare)<br><span class="hangul-char">사랑하다</span> (amare)</td>
+        <td>공부하<br>사랑하</td>
+        <td><strong>공부해요</strong> (gongbuhaeyo)<br><strong>사랑해요</strong> (saranghaeyo)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>3. La Copula: Essere (이에요 / 예요)</h2>
+  <p>Per dire "Sono / È [Nome/Sostantivo]":</p>
+  <ul>
+    <li>Se il nome termina con <strong>consonante (batchim)</strong> ➔ <strong>이에요</strong> (ieyo):<br>
+    <span class="hangul-char">학생이에요.</span> (Haksaeng-ieyo = Sono uno studente.)</li>
+    <li>Se il nome termina con <strong>vocale pura</strong> ➔ <strong>예요</strong> (yeyo):<br>
+    <span class="hangul-char">의사예요.</span> (Uisa-yeyo = Sono un medico.)</li>
+  </ul>
+
+</body>
+</html>

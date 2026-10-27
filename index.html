@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glossa - Fogli di Studio Linguistico</title>
+    <meta name="description" content="PWA modulare per raccogliere e consultare fogli HTML per lingue orientali, slave e altre, con design a contrasto su sfondo grigio perla orientato alla massima leggibilità e concentrazione." />
+    <meta property="og:title" content="Glossa - Fogli di Studio Linguistico" />
+    <meta property="og:description" content="PWA modulare per raccogliere e consultare fogli HTML per lingue orientali, slave e altre, con design a contrasto su sfondo grigio perla orientato alla massima leggibilità e concentrazione." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#181b20" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Glossa" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <!-- Fonts for superior legibility across Latin, Cyrillic, Hanzi, Kana, Hangul -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+    <script>
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event?.reason?.message && event.reason.message.includes('WebSocket')) {
+          event.preventDefault();
+        }
+      });
+      window.addEventListener('error', function(event) {
+        if (event?.message && event.message.includes('WebSocket')) {
+          event.preventDefault();
+        }
+      });
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #1d4ed8;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Guida alle Particelle Giapponesi Fondamentali (JLPT N5)</title>
+
+</head>
+<body>
+
+  <div class="badge">GIAPPONESE (GRAMMATICA) • FOGLIO DI STUDIO</div>
+  <h1>Guida alle Particelle Giapponesi Fondamentali (N5)</h1>
+
+  <h2>1. Il Grande Dilemma: は (wa) vs が (ga)</h2>
+
+  <div class="vs-box">
+    <div class="vs-card">
+      <h3><span class="particle">は (pronunciata wa)</span> • Il Tema</h3>
+      <p>Definisce ciò di cui si sta parlando (il contesto/argomento generale). Sposta il focus informativo su ciò che segue.</p>
+      <p><em>"Per quanto riguarda X..."</em></p>
+      <code>私は田中です。(Watashi wa Tanaka desu.)</code>
+      <p><small>Io [per quanto mi riguarda] sono Tanaka.</small></p>
+    </div>
+
+    <div class="vs-card">
+      <h3><span class="particle">が (ga)</span> • Il Soggetto Grammaticale</h3>
+      <p>Indica chi compie l'azione o evidenzia una nuova informazione/scelta specifica. Sposta il focus su chi precede.</p>
+      <p><em>"Proprio X (e nessun altro)..."</em></p>
+      <code>誰が来ましたか？ 田中さんが来ました。</code>
+      <p><small>Chi è venuto? Tanaka [proprio lui] è venuto.</small></p>
+    </div>
+  </div>
+
+  <h2>2. Tavola Sinottica delle Altre Particelle N5</h2>
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Particella</th>
+        <th>Funzione principale</th>
+        <th>Esempio giapponese</th>
+        <th>Traduzione italiana</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="particle">を (o)</span></td>
+        <td>Oggetto diretto dell'azione transitiva</td>
+        <td>りんご<strong>を</strong>食べます。</td>
+        <td>Mangio la mela.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">に (ni)</span></td>
+        <td>Destinazione, orario puntuale, stato in luogo statico</td>
+        <td>東京<strong>に</strong>行きます。<br>7時<strong>に</strong>起きます。</td>
+        <td>Vado a Tokyo.<br>Mi sveglio alle 7.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">で (de)</span></td>
+        <td>Luogo in cui si svolge un'azione, mezzo/strumento</td>
+        <td>図書館<strong>で</strong>勉強します。<br>電車<strong>で</strong>行きます。</td>
+        <td>Studio in biblioteca.<br>Vado in treno.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">へ (e)</span></td>
+        <td>Direzione del moto (verso dove)</td>
+        <td>家<strong>へ</strong>帰ります。</td>
+        <td>Rientro verso casa.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">と (to)</span></td>
+        <td>Congiunzione esaustiva ("e"), compagnia ("con")</td>
+        <td>パン<strong>と</strong>水。<br>友達<strong>と</strong>話します。</td>
+        <td>Pane e acqua.<br>Parlo con un amico.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">も (mo)</span></td>
+        <td>Inclusione ("anche", sostituisce は, が, を)</td>
+        <td>私<strong>も</strong>学生です。</td>
+        <td>Anche io sono studente.</td>
+      </tr>
+      <tr>
+        <td><span class="particle">の (no)</span></td>
+        <td>Possesso, specificazione, modificatore nominale</td>
+        <td>私<strong>の</strong>本。<br>日本語<strong>の</strong>先生。</td>
+        <td>Il mio libro.<br>L'insegnante di giapponese.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

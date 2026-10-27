@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #b45309;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Alfabeto Arabo: Le 4 Forme Contestuali</title>
+
+</head>
+<body>
+
+  <div class="badge">ARABO (SCRITTURA) • FOGLIO DI STUDIO</div>
+  <h1>Alfabeto Arabo: Le 4 Forme Contestuali</h1>
+
+  <p>L'arabo si scrive da destra verso sinistra. Le sue 28 lettere sono corsive e mutano forma a seconda della posizione nella parola: Isolata, Iniziale, Mediana e Finale.</p>
+
+  <div class="special-box">
+    <strong>Le 6 Lettere Non Leganti (Cruciali!):</strong><br>
+    Le seguenti sei lettere si legano solo alla lettera precedente (a destra), ma <strong>non si legano mai</strong> alla lettera che le segue (a sinistra):<br>
+    <span class="ar-char" style="font-size: 2.2rem; margin-top: 8px;">ا &nbsp; د &nbsp; ذ &nbsp; ر &nbsp; ز &nbsp; و</span><br>
+    <small>(Alif, Dāl, Dhāl, Rā', Zāy, Wāw)</small>
+  </div>
+
+  <h2>Campione delle Lettere e Forme</h2>
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Traslitterazione</th>
+        <th>Isolata</th>
+        <th>Finale</th>
+        <th>Mediana</th>
+        <th>Iniziale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bā'</td>
+        <td>b</td>
+        <td><span class="ar-char">ب</span></td>
+        <td><span class="ar-char">ـب</span></td>
+        <td><span class="ar-char">ـبـ</span></td>
+        <td><span class="ar-char">بـ</span></td>
+      </tr>
+      <tr>
+        <td>Tā'</td>
+        <td>t</td>
+        <td><span class="ar-char">ت</span></td>
+        <td><span class="ar-char">ـت</span></td>
+        <td><span class="ar-char">ـتـ</span></td>
+        <td><span class="ar-char">تـ</span></td>
+      </tr>
+      <tr>
+        <td>Thā'</td>
+        <td>th (interdentale)</td>
+        <td><span class="ar-char">ث</span></td>
+        <td><span class="ar-char">ـث</span></td>
+        <td><span class="ar-char">ـثـ</span></td>
+        <td><span class="ar-char">ثـ</span></td>
+      </tr>
+      <tr>
+        <td>Jīm</td>
+        <td>j</td>
+        <td><span class="ar-char">ج</span></td>
+        <td><span class="ar-char">ـج</span></td>
+        <td><span class="ar-char">ـجـ</span></td>
+        <td><span class="ar-char">جـ</span></td>
+      </tr>
+      <tr>
+        <td>Mīm</td>
+        <td>m</td>
+        <td><span class="ar-char">م</span></td>
+        <td><span class="ar-char">ـم</span></td>
+        <td><span class="ar-char">ـمـ</span></td>
+        <td><span class="ar-char">مـ</span></td>
+      </tr>
+      <tr>
+        <td>Nūn</td>
+        <td>n</td>
+        <td><span class="ar-char">ن</span></td>
+        <td><span class="ar-char">ـن</span></td>
+        <td><span class="ar-char">ـنـ</span></td>
+        <td><span class="ar-char">نـ</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>Le 3 Vocali Brevi (Harakat)</h2>
+  <ul>
+    <li><strong>Fatḥa ( َ ):</strong> Trattino sopra la consonante ➔ suono "a" (es. بَ = ba)</li>
+    <li><strong>Kasra ( ِ ):</strong> Trattino sotto la consonante ➔ suono "i" (es. بِ = bi)</li>
+    <li><strong>Ḍamma ( ُ ):</strong> Piccolo ricciolo sopra la consonante ➔ suono "u" (es. بُ = bu)</li>
+    <li><strong>Sukūn ( ْ ):</strong> Cerchietto sopra la lettera indicante assenza di vocale (consonante muta di chiusura)</li>
+  </ul>
+
+</body>
+</html>

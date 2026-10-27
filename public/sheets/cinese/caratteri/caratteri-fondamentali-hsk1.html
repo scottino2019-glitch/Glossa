@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #c2410c;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Caratteri Fondamentali e Radicali HSK 1 - Cinese</title>
+
+</head>
+<body>
+
+  <div class="badge">CINESE (HSK 1) • FOGLIO DI STUDIO</div>
+  <h1>Caratteri Fondamentali e Radicali HSK 1</h1>
+
+  <div class="intro-box">
+    <strong>Principio di apprendimento:</strong> In cinese la memoria visiva funziona per scomposizione logica. Ogni carattere complesso è formato da un <em>radicale semantico</em> (che suggerisce il significato) e una componente fonetica o integrativa. Conoscere i radicali riduce del 70% lo sforzo di memorizzazione.
+  </div>
+
+  <h2>1. I Radicali Primari (I Mattoni del Cinese)</h2>
+  <p>I radicali più ricorrenti nei testi elementari e nella vita quotidiana:</p>
+
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Radicale</th>
+        <th>Pinyin</th>
+        <th>Significato d'origine</th>
+        <th>Forma composita</th>
+        <th>Esempi di caratteri</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="cjk-char">人</span></td>
+        <td class="pinyin">rén</td>
+        <td>Persona / Uomo</td>
+        <td>亻 (lato sinistro)</td>
+        <td><strong>你</strong> (tu), <strong>他</strong> (lui), <strong>们</strong> (plurale)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">口</span></td>
+        <td class="pinyin">kǒu</td>
+        <td>Bocca / Apertura</td>
+        <td>口</td>
+        <td><strong>吃</strong> (mangiare), <strong>喝</strong> (bere), <strong>叫</strong> (chiamarsi)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">水</span></td>
+        <td class="pinyin">shuǐ</td>
+        <td>Acqua / Liquido</td>
+        <td>氵 (tre gocce d'acqua)</td>
+        <td><strong>没</strong> (non avere/negazione), <strong>汉</strong> (etnia Han), <strong>渴</strong> (assetato)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">木</span></td>
+        <td class="pinyin">mù</td>
+        <td>Albero / Legno</td>
+        <td>木</td>
+        <td><strong>杯</strong> (bicchiere/tazza), <strong>桌</strong> (tavolo), <strong>本</strong> (classificatore libri)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">日</span></td>
+        <td class="pinyin">rì</td>
+        <td>Sole / Giorno</td>
+        <td>日</td>
+        <td><strong>明</strong> (luminoso/domani), <strong>早</strong> (presto), <strong>时</strong> (tempo/ora)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">女</span></td>
+        <td class="pinyin">nǚ</td>
+        <td>Donna / Femminile</td>
+        <td>女</td>
+        <td><strong>好</strong> (buono = donna + bambino), <strong>她</strong> (lei), <strong>妈</strong> (mamma)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">言 / 讠</span></td>
+        <td class="pinyin">yán</td>
+        <td>Parola / Parlare</td>
+        <td>讠 (semplificato a sinistra)</td>
+        <td><strong>说</strong> (parlare), <strong>认</strong> (riconoscere), <strong>请</strong> (prego/invitare)</td>
+      </tr>
+      <tr>
+        <td><span class="cjk-char">心 / 忄</span></td>
+        <td class="pinyin">xīn</td>
+        <td>Cuore / Emozioni</td>
+        <td>忄 (cuore verticale)</td>
+        <td><strong>想</strong> (pensare/desiderare), <strong>快</strong> (veloce/felice), <strong>忙</strong> (occupato)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>2. Tavola dei 10 Caratteri Chiave di Sopravvivenza</h2>
+  <div class="grid-cards">
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">是</span>
+        <span class="pinyin">shì</span>
+      </div>
+      <div><strong>Significato:</strong> Essere, sì, confermare</div>
+      <div class="example-sentence">我是学生。</div>
+      <div class="example-trans">Wǒ shì xuésheng. (Io sono studente.)</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">有</span>
+        <span class="pinyin">yǒu</span>
+      </div>
+      <div><strong>Significato:</strong> Avere, esserci, esistere</div>
+      <div class="example-sentence">我有一本书。</div>
+      <div class="example-trans">Wǒ yǒu yī běn shū. (Ho un libro.)</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">好</span>
+        <span class="pinyin">hǎo</span>
+      </div>
+      <div><strong>Significato:</strong> Buono, bene, okay</div>
+      <div class="example-sentence">你好！今天很好。</div>
+      <div class="example-trans">Nǐ hǎo! Jīntiān hěn hǎo. (Ciao! Oggi va molto bene.)</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">看</span>
+        <span class="pinyin">kàn</span>
+      </div>
+      <div><strong>Significato:</strong> Guardare, leggere, visitare</div>
+      <div class="example-sentence">他在看书。</div>
+      <div class="example-trans">Tā zài kàn shū. (Lui sta leggendo un libro.)</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">去</span>
+        <span class="pinyin">qù</span>
+      </div>
+      <div><strong>Significato:</strong> Andare (verso un luogo)</div>
+      <div class="example-sentence">你想去中国吗？</div>
+      <div class="example-trans">Nǐ xiǎng qù Zhōngguó ma? (Vuoi andare in Cina?)</div>
+    </div>
+
+    <div class="mini-card">
+      <div class="mini-card-head">
+        <span class="cjk-char">做</span>
+        <span class="pinyin">zuò</span>
+      </div>
+      <div><strong>Significato:</strong> Fare, fabbricare, preparare</div>
+      <div class="example-sentence">你在做什么？</div>
+      <div class="example-trans">Nǐ zài zuò shénme? (Cosa stai facendo?)</div>
+    </div>
+  </div>
+
+  <h2>3. I 4 Toni del Pinyin e il Tono Neutro</h2>
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Tono</th>
+        <th>Segno</th>
+        <th>Andamento melodico</th>
+        <th>Esempio con 'ma'</th>
+        <th>Significato</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1° Tono</td>
+        <td>mā (—)</td>
+        <td>Alto e costante (livello 5-5)</td>
+        <td><span class="cjk-char">妈</span></td>
+        <td>Madre</td>
+      </tr>
+      <tr>
+        <td>2° Tono</td>
+        <td>má (/)</td>
+        <td>Crescente, come una domanda italiana (3-5)</td>
+        <td><span class="cjk-char">麻</span></td>
+        <td>Canapa / intorpidito</td>
+      </tr>
+      <tr>
+        <td>3° Tono</td>
+        <td>mǎ (V)</td>
+        <td>Discendente poi risalente (2-1-4)</td>
+        <td><span class="cjk-char">马</span></td>
+        <td>Cavallo</td>
+      </tr>
+      <tr>
+        <td>4° Tono</td>
+        <td>mà (\)</td>
+        <td>Secco, discendente deciso (5-1)</td>
+        <td><span class="cjk-char">骂</span></td>
+        <td>Rimproverare / insultare</td>
+      </tr>
+      <tr>
+        <td>Neutro</td>
+        <td>ma (senza accento)</td>
+        <td>Breve, leggero e deaccentato</td>
+        <td><span class="cjk-char">吗</span></td>
+        <td>Particella interrogativa</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>4. Regola d'Oro sui Tratti (Stroke Order)</h2>
+  <ol>
+    <li>Dall'alto verso il basso (es. <span class="cjk-char">三</span>)</li>
+    <li>Da sinistra verso destra (es. <span class="cjk-char">川</span>)</li>
+    <li>Prima l'orizzontale, poi il verticale (es. <span class="cjk-char">十</span>)</li>
+    <li>Prima il tratto discendente a sinistra (撇), poi a destra (捺) (es. <span class="cjk-char">八</span>)</li>
+    <li>Dall'esterno all'interno, chiudere la scatola per ultimo (es. <span class="cjk-char">国</span>, <span class="cjk-char">日</span>)</li>
+    <li>Prima il centro, poi i lati simmetrici (es. <span class="cjk-char">小</span>, <span class="cjk-char">水</span>)</li>
+  </ol>
+
+</body>
+</html>

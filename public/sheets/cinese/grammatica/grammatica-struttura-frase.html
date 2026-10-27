@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <style>
+    :root {
+      --accent: #c2410c;
+    }
+    *, *:before, *:after {
+      box-sizing: border-box;
+    }
+    html {
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+      background-color: #ffffff;
+      color: #1e242c;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", Arial, sans-serif;
+      line-height: 1.75;
+      color: #1e242c;
+      background-color: #ffffff;
+      margin: 0 auto;
+      max-width: 900px;
+      padding: 24px 20px 120px 20px;
+      font-size: 16px;
+    }
+    @media (max-width: 640px) {
+      body {
+        padding: 16px 14px 120px 14px;
+        font-size: 15px;
+      }
+      h1 { font-size: 1.55rem !important; }
+      h2 { font-size: 1.25rem !important; }
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 0;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--accent);
+      line-height: 1.3;
+    }
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #1e293b;
+      margin-top: 2rem;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+      line-height: 1.35;
+    }
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      margin-top: 1.4rem;
+      margin-bottom: 8px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: #f1f5f9;
+      color: var(--accent);
+      border: 1px solid #e2e8f0;
+      margin-bottom: 14px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .intro-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent);
+      padding: 14px 18px;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 24px;
+      font-size: 15px;
+      color: #334155;
+      line-height: 1.65;
+    }
+    /* Asian and international typography styles */
+    .cjk-char, .kana, .hangul {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #0f172a;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 4px;
+    }
+    .pinyin {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .vocab-word {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    /* Tables: beautifully contained, horizontally scrollable on mobile */
+    .table-container {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 18px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      margin: 0;
+      font-size: 14.5px;
+    }
+    th, td {
+      border: 1px solid #e2e8f0;
+      padding: 11px 14px;
+      text-align: left;
+      vertical-align: middle;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 600;
+      color: #334155;
+      border-bottom: 2px solid #cbd5e1;
+    }
+    tr:nth-child(even) {
+      background-color: #fcfdfe;
+    }
+    tr:hover {
+      background-color: #f1f5f9;
+    }
+    /* Cards and Grids */
+    .grid-cards, .grid-kana, .grid-types, .vs-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .mini-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 14px 16px;
+      background-color: #ffffff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .mini-card-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .example-sentence {
+      font-size: 1.05rem;
+      color: #1e242c;
+      margin: 6px 0 2px 0;
+      font-weight: 500;
+    }
+    .example-trans {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+  </style>
+  
+   
+  
+  <title>Sintassi Cinese: Ordine Frase e Particelle</title>
+
+</head>
+<body>
+
+  <div class="badge">CINESE (GRAMMATICA) • FOGLIO DI STUDIO</div>
+  <h1>Sintassi Cinese: Ordine della Frase e Particelle</h1>
+
+  <h2>1. La Formula Fondamentale dell'Ordine Frase</h2>
+  <p>In cinese la lingua non ha coniugazioni o desinenze flessive: l'ordine dei costituenti stabilisce il significato in modo assoluto e ferreo.</p>
+
+  <div class="rule-formula">
+    <span>Soggetto</span> + [Tempo] + [Luogo (在)] + [Modo/Con chi] + <span>Verbo</span> + <span>Oggetto</span>
+  </div>
+
+  <div class="callout">
+    <strong>Regola fondamentale:</strong> Le informazioni circostanziali (Quando? Dove? Come?) precedono <strong>sempre</strong> il Verbo. Non possono mai essere poste in fondo alla frase come in italiano o inglese.
+  </div>
+
+  <div class="table-container">
+<table>
+    <thead>
+      <tr>
+        <th>Elemento</th>
+        <th>Cinese</th>
+        <th>Pinyin</th>
+        <th>Traduzione letterale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Soggetto</td>
+        <td><span class="cjk-char">我</span></td>
+        <td>Wǒ</td>
+        <td>Io</td>
+      </tr>
+      <tr>
+        <td>Tempo (Quando)</td>
+        <td><span class="cjk-char">明天晚上</span></td>
+        <td>míngtiān wǎnshang</td>
+        <td>Domani sera</td>
+      </tr>
+      <tr>
+        <td>Luogo (Dove)</td>
+        <td><span class="cjk-char">在图书馆</span></td>
+        <td>zài túshūguǎn</td>
+        <td>In biblioteca</td>
+      </tr>
+      <tr>
+        <td>Compagnia (Con chi)</td>
+        <td><span class="cjk-char">跟朋友</span></td>
+        <td>gēn péngyou</td>
+        <td>Con un amico</td>
+      </tr>
+      <tr>
+        <td>Verbo</td>
+        <td><span class="cjk-char">学习</span></td>
+        <td>xuéxí</td>
+        <td>studiare</td>
+      </tr>
+      <tr>
+        <td>Oggetto</td>
+        <td><span class="cjk-char">汉语</span></td>
+        <td>Hànyǔ</td>
+        <td>cinese</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <h2>2. Le 3 Particelle Chiave: 的 (de), 了 (le), 吗 (ma)</h2>
+
+  <h3>A. 的 (de) - Il Legante del Possesso e della Modificazione</h3>
+  <p>Qualunque elemento che modifica o specifica un nome deve precedere <strong>的</strong>:</p>
+  <ul>
+    <li><strong>Possessivo:</strong> <span class="cjk-char">我的书</span> (Wǒ de shū) = Il mio libro</li>
+    <li><strong>Aggettivale:</strong> <span class="cjk-char">漂亮的衣服</span> (Piàoliang de yīfu) = Vestito bello</li>
+    <li><strong>Proposizione relativa:</strong> <span class="cjk-char">我昨天买的苹果</span> (Wǒ zuótiān mǎi de píngguǒ) = Le mele che ho comprato ieri</li>
+  </ul>
+
+  <h3>B. 了 (le) - Non è il passato! È il Cambiamento o Completamento</h3>
+  <p>Non confondere mai <em>了</em> con una desinenza di tempo passato. Indica:</p>
+  <ol>
+    <li><strong>Azione completata (Verbo + 了):</strong> <span class="cjk-char">我喝了咖啡。</span> (Wǒ hē le kāfēi) = Ho bevuto il caffè.</li>
+    <li><strong>Nuova situazione / Cambiamento di stato (Frase + 了):</strong> <span class="cjk-char">下雨了！</span> (Xiàyǔ le!) = Ha iniziato a piovere! (Prima non pioveva, ora sì).</li>
+  </ol>
+
+  <h3>C. 吗 (ma) - La Domanda Polare Sì/No</h3>
+  <p>Aggiungendo 吗 alla fine di qualsiasi frase affermativa, questa diventa una domanda binaria senza alterare l'ordine delle parole:</p>
+  <ul>
+    <li>Affermazione: <span class="cjk-char">他是老师。</span> (Tā shì lǎoshī.) = Lui è un insegnante.</li>
+    <li>Domanda: <span class="cjk-char">他是老师吗？</span> (Tā shì lǎoshī ma?) = Lui è un insegnante?</li>
+  </ul>
+
+</body>
+</html>

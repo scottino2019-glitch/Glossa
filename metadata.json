@@ -1,0 +1,6 @@
+{
+  "name": "Glossa - Fogli di Studio Linguistico",
+  "description": "PWA modulare per raccogliere e consultare fogli HTML per lingue orientali, slave e altre, con design a contrasto su sfondo grigio perla orientato alla massima leggibilità e concentrazione.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
